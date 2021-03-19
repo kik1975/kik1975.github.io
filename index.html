@@ -158,7 +158,7 @@ var graalStr = "1204,1108,629";
 		let up = Math.floor(diff/multnum[i][0]);
 		let rest = diff%multnum[i][0];
 		if (up < 3) continue;
-		if (checkBox.checked == true && (up == 4 || up == 5 || up == 7 || up == 8 || up == 11 || up == 13 || up == 14 || up == 17 || up == 18)) continue;
+		if (checkBox.checked == true && (up == 4 || up == 5 || up == 7 || up == 8 || up == 11 || up == 14 || up == 17 || up == 18)) continue;
 		if(rest == 0){
 			if (multnum[i][1] == 0)
 				return '<font color="blue">' + String(multnum[i][0]) + '</font>' + "x" + String(up);
@@ -208,13 +208,13 @@ var graalStr = "1204,1108,629";
 			x0 -= alpha;
 		}
 		if (checkBox.checked == true){
-			while (y0 == 4 || y0 == 5 || y0 == 7 || y0 == 8 || y0 == 11 || y0 == 13 || y0 == 14 || y0 == 17){
+			while (y0 == 4 || y0 == 5 || y0 == 7 || y0 == 8 || y0 == 11 || y0 == 14 || y0 == 17){
 				y0 += beta;
 				x0 -= alpha;
 			}
 		}
 		if (x0 < 3) continue;
-		if (checkBox.checked == true && (x0 == 4 || x0 == 5 || x0 == 7 || x0 == 8 || x0 == 11 || x0 == 13 || x0 == 14 || x0 == 17)) continue;
+		if (checkBox.checked == true && (x0 == 4 || x0 == 5 || x0 == 7 || x0 == 8 || x0 == 11 || x0 == 14 || x0 == 17)) continue;
 		if (multnum[i][1] == 0)
 			str1 = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(x0);
 		else 
@@ -262,7 +262,7 @@ var graalStr = "1204,1108,629";
 		let base_x = Math.floor(diff / mult1);
 		if (base_x < 3) continue;
 		for (var x0 = base_x; x0 >= 3; x0--){
-			if (checkBox.checked == true && (x0 == 4 || x0 == 5 || x0 == 7 || x0 == 8 || x0 == 11 || x0 == 13 || x0 == 14 || x0 == 17)) continue;
+			if (checkBox.checked == true && (x0 == 4 || x0 == 5 || x0 == 7 || x0 == 8 || x0 == 11 || x0 == 14 || x0 == 17)) continue;
 			let diff1 = diff - mult1*x0;
 			let multnum1 = new Array();
 			multnum1[0] = [];
