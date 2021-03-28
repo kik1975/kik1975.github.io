@@ -1,0 +1,9 @@
+var videoBonus = 12;
+var baseStr = ["1047,964,547","356,123,258","489,255,74",""];
+var graalStr = ["1204,1108,629","478,347,250","578,450,57",""];
+var accNames = ["ВКонтакте","Facebook","Google","Тест4"];
+var accs = 3
+var begDate = new Date(2021, 2, 19);
+var range = 754;
+var isLiteVersion = false;
+var isAutoLevel = false;
