@@ -330,6 +330,7 @@ function calcSafe(){
 			document.getElementById("code1").value = Math.floor(KZval*0.025);
 			document.getElementById("code2").value = Math.floor(KZval*0.07);
 			document.getElementById("code3").value = Math.floor(KZval*0.12);
+			return;
 		}
 	}
 	KZval = calcKZ(level);
