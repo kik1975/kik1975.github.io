@@ -298,7 +298,6 @@ function calcKZ(level){
 	level = parseInt(level);
 	if (level < 4 || (level < 410 && level > 299)) return 0;
 	if (level <= 299){
-		level = level - 3;
 		if (level == 1) return 74999;
 		let diff = level - 1;
 		return calcKZ(level-1) + 28648+ 110*diff;
@@ -326,6 +325,7 @@ function calcSafe(){
 		return;
 		}
 		else{
+			level = level - 3;
 			KZval = calcKZ(level);
 			document.getElementById("code1").value = Math.floor(KZval*0.025);
 			document.getElementById("code2").value = Math.floor(KZval*0.07);
