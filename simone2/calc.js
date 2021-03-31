@@ -296,7 +296,7 @@ function clearmulty() {
 
 function calcKZ(level){
 	level = parseInt(level);
-	if (level < 4 || (level < 410 && level > 299)) return 0;
+	if (level < 1 || (level < 410 && level > 299)) return 0;
 	if (level <= 299){
 		if (level == 1) return 74999;
 		let diff = level - 1;
