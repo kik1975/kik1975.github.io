@@ -1,9 +1,9 @@
 var videoBonus = 12;
-var baseStr = ["",","",""];
+var baseStr = ["","","",""];
 var graalStr = ["","","",""];
 var accNames = ["","","",""];
 var accs = 1
-var begDate = new Date(2021, 2, 31);
+var begDate = new Date(2021, 2, 30);
 var range = 133;
 var isLiteVersion = false;
 var isAutoLevel = true;
