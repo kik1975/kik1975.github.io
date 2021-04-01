@@ -1,9 +1,9 @@
-var videoBonus = 12;
-var baseStr = ["1047,964,547","356,123,258","489,255,74",""];
-var graalStr = ["1204,1108,629","478,347,250","578,450,57",""];
-var accNames = ["ВКонтакте","Facebook","Google","Тест4"];
+var videoBonuses = [6,12,6,12];
+var baseStr = ["","87,80,82","",""];
+var graalStr = ["2196,1699,1578,1564,1465","104,98,96,87","68,52,43,36",""];
+var accNames = ["ВКонтакте","Google","Facebook",""];
 var accs = 3
-var begDate = new Date(2021, 2, 19);
-var range = 754;
+var begDates = [[2021, 2, 31],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
+var range = [133,133,133,133];
 var isLiteVersion = false;
-var isAutoLevel = false;
+var isAutoLevel = [true,false,true,false];
