@@ -1,6 +1,9 @@
 var currDate = new Date();
-var diffDays;
 var curracc = 0;
+var videoBonus = videoBonuses[curracc];
+var begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
+var diffDays;
+
 
 function diffDates() {
     return (currDate - begDate) / (60 * 60 * 24 * 1000);
@@ -8,14 +11,24 @@ function diffDates() {
 
 function onclick(e){
     curracc = parseInt(e.target.value);
+	videoBonus = videoBonuses[curracc];
+	begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
+	Init();
 }
 
-function Init(preInit = false){
-	if (preInit && isAutoLevel){
+function Init(){
+	if (isAutoLevel[curracc]){
 		diffDays = parseInt(diffDates());
-		document.getElementById("level").value = range+diffDays*3;
+		document.getElementById("level").value = range[curracc]+diffDays*3;
 		calcSafe();
 	}
+	else{
+		document.getElementById("level").value = "";
+		document.getElementById("code1").value = "";
+		document.getElementById("code2").value = "";
+		document.getElementById("code3").value = "";
+	}
+	document.getElementById('videoBonus').value = videoBonus;
     document.getElementById("Graal").hidden = isLiteVersion;
     document.getElementById("noGraal").hidden = isLiteVersion;
     if (accs > 1 && accs < 5){
