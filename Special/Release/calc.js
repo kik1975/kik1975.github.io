@@ -318,7 +318,7 @@ function calcKZ(level){
 		baselevel = 1;
 		add = 110;
 		val = 74999; 
-		diff = 28648;
+		diff = 28758;
 	}
 	else {
 		baselevel = 300;
