@@ -1,0 +1,9 @@
+var videoBonuses = [7,12,6,12];
+var baseStr = ["186,124,96,74,61,66,69,64","","",""];
+var graalStr = ["301,202,155,119,92,97,105,100","","",""];
+var accNames = ["","","",""];
+var accs = 1
+var begDates = [[2021, 2, 31],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
+var range = [133,133,133,133];
+var isLiteVersion = false;
+var isAutoLevel = [true,false,false,false];
