@@ -1,6 +1,6 @@
 var videoBonuses = [9,12,6,12];
 var baseStr = ["","","",""];
-var graalStr = ["297,199,153,118,91","","",""];
+var graalStr = ["318,213,164,126,97","","",""];
 var accNames = ["","","",""];
 var accs = 1
 var begDates = [[2021, 2, 31],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
