@@ -17,6 +17,8 @@ function onclick(e){
 }
 
 function Init(){
+	document.getElementById('videoBonus').value = videoBonus;
+	document.getElementById("needval").value = "";
 	if (isAutoLevel[curracc]){
 		diffDays = parseInt(diffDates());
 		document.getElementById("level").value = range[curracc]+diffDays*3;
@@ -28,7 +30,6 @@ function Init(){
 		document.getElementById("code2").value = "";
 		document.getElementById("code3").value = "";
 	}
-	document.getElementById('videoBonus').value = videoBonus;
     document.getElementById("Graal").hidden = isLiteVersion;
     document.getElementById("noGraal").hidden = isLiteVersion;
     if (accs > 1 && accs < 5){
@@ -350,6 +351,14 @@ function calcSafe(){
 		document.getElementById("code3").value = "Расчет невозможен";
 		return;
 	}
+	let loc_code_num;
+	if (typeof code_num === 'undefined'){
+		loc_code_num = 3;
+	}
+	else{
+		if (parseInt(code_num[curracc]) >= 1 && parseInt(code_num[curracc]) <= 3)	loc_code_num = parseInt(code_num[curracc]);
+		else loc_code_num = 3;
+	}
 	if (KZlevel <= 300){
 		document.getElementById("code1").value = Math.floor(KZval*0.025);
 		document.getElementById("code2").value = Math.floor(KZval*0.07);
@@ -359,6 +368,21 @@ function calcSafe(){
 		document.getElementById("code1").value = Math.floor(KZval*0.025);
 		document.getElementById("code2").value = Math.floor(KZval*0.06);
 		document.getElementById("code3").value = Math.floor(KZval*0.1);
+	}
+	if (level <= 100)	document.getElementById('videoBonus').value = 5;
+	else if (level <= 200)	document.getElementById('videoBonus').value = 7;
+	else if (level <= 300)	document.getElementById('videoBonus').value = 9;
+	else 						document.getElementById('videoBonus').value = 12;
+	switch (loc_code_num) {
+		case 1:
+			document.getElementById("needval").value = document.getElementById("code1").value;
+		break;
+		case 2:
+			document.getElementById("needval").value = document.getElementById("code2").value;
+		break;
+		case 3:
+			document.getElementById("needval").value = document.getElementById("code3").value;
+		break;
 	}
 }
 
