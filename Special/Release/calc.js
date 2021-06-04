@@ -375,6 +375,7 @@ function calcSafe(){
 		document.getElementById("code3").value = Math.floor(KZval*0.1);
 	}
 	if (level <= 100)	document.getElementById('videoBonus').value = 5;
+	else if (level <= 150)	document.getElementById('videoBonus').value = 6;
 	else if (level <= 200)	document.getElementById('videoBonus').value = 7;
 	else if (level <= 300)	document.getElementById('videoBonus').value = 9;
 	else 						document.getElementById('videoBonus').value = 12;
