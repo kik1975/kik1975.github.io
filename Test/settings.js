@@ -1,9 +1,10 @@
-var videoBonuses = [6,12,6,12];
-var baseStr = ["","87,80,82","",""];
-var graalStr = ["2196,1699,1578,1564,1465","104,98,96,87","68,52,43,36",""];
+var videoBonuses = [12,12,5,12];
+var code_num = [3,1,3,3];
+var baseStr = ["","163,131","96,89,90",""];
+var graalStr = ["1270,756,540,386,276,983","","125,117,116",""];
 var accNames = ["ВКонтакте","Google","Facebook",""];
-var accs = 3
-var begDates = [[2021, 2, 31],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
-var range = [133,133,133,133];
+var accs = 3;
+var begDates = [[2021, 4, 30],[2021, 2, 31],[2021, 4, 23],[2021, 2, 31]];
+var range = [315,133,292,133];
 var isLiteVersion = false;
-var isAutoLevel = [true,false,true,false];
+var isAutoLevel = [true,false,false,false];

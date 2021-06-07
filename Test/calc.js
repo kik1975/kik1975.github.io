@@ -16,7 +16,14 @@ function onclick(e){
 	Init();
 }
 
+function isUnlikely(x){
+	if ( x < 3 || x == 4 || x == 5 || x == 7 || x == 8 || x == 11 || x == 14 || x == 17) return true;
+	return false;
+}
+
 function Init(){
+	document.getElementById('videoBonus').value = videoBonus;
+	document.getElementById("needval").value = "";
 	if (isAutoLevel[curracc]){
 		diffDays = parseInt(diffDates());
 		document.getElementById("level").value = range[curracc]+diffDays*3;
@@ -28,7 +35,6 @@ function Init(){
 		document.getElementById("code2").value = "";
 		document.getElementById("code3").value = "";
 	}
-	document.getElementById('videoBonus').value = videoBonus;
     document.getElementById("Graal").hidden = isLiteVersion;
     document.getElementById("noGraal").hidden = isLiteVersion;
     if (accs > 1 && accs < 5){
@@ -116,7 +122,7 @@ function Init(){
 		let up = Math.floor(diff/multnum[i][0]);
 		let rest = diff%multnum[i][0];
 		if (up < 3) continue;
-		if (checkBox.checked == true && (up == 4 || up == 5 || up == 7 || up == 8 || up == 11 || up == 14 || up == 17)) continue;
+		if (checkBox.checked == true && isUnlikely(up)) continue;
 		if(rest == 0){
 			if (multnum[i][1] == 0)
 				return '<font color="blue">' + String(multnum[i][0]) + '</font>' + "x" + String(up);
@@ -166,13 +172,13 @@ function Init(){
 			x0 -= alpha;
 		}
 		if (checkBox.checked == true){
-			while (y0 == 4 || y0 == 5 || y0 == 7 || y0 == 8 || y0 == 11 || y0 == 14 || y0 == 17){
+			while (isUnlikely(y0)){
 				y0 += beta;
 				x0 -= alpha;
 			}
 		}
 		if (x0 < 3) continue;
-		if (checkBox.checked == true && (x0 == 4 || x0 == 5 || x0 == 7 || x0 == 8 || x0 == 11 || x0 == 14 || x0 == 17)) continue;
+		if (checkBox.checked == true && isUnlikely(x0)) continue;
 		if (multnum[i][1] == 0)
 			str1 = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(x0);
 		else 
@@ -220,7 +226,7 @@ function Init(){
 		let base_x = Math.floor(diff / mult1);
 		if (base_x < 3) continue;
 		for (var x0 = base_x; x0 >= 3; x0--){
-			if (checkBox.checked == true && (x0 == 4 || x0 == 5 || x0 == 7 || x0 == 8 || x0 == 11 || x0 == 14 || x0 == 17)) continue;
+			if (checkBox.checked == true && isUnlikely(x0)) continue;
 			let diff1 = diff - mult1*x0;
 			let multnum1 = new Array();
 			multnum1[0] = [];
@@ -309,47 +315,82 @@ function clearmulty() {
 
 function calcKZ(level){
 	level = parseInt(level);
-	if (level < 1 || (level < 410 && level > 299)) return 0;
-	if (level <= 299){
-		if (level == 1) return 74999;
-		let diff = level - 1;
-		return calcKZ(level-1) + 28648+ 110*diff;
+	if (level < 1) return 0;
+	let baselevel;
+	let add;
+	let val; 
+	let diff;
+	if (level < 300){
+		baselevel = 1;
+		add = 110;
+		val = 74999; 
+		diff = 28758;
 	}
-	else{
-		base = 22947834;
-		if (level == 410) return base;
-		diff = 83877;
+	else {
+		baselevel = 300;
 		add = 136;
-		for (lv = 410; lv < level; lv++){
-			diff += add;
-			base += diff;
-		}
+		val = 14744251; 
+		diff = 69461;
 	}
-	return base;
+	if (level == baselevel) return val;
+	for (lv = baselevel; lv < level; lv++){
+		val += diff;
+		diff += add;
+	}
+	return val;
 }
 
 function calcSafe(){
 	level = parseInt(document.getElementById("level").value);
-	if (isNaN(level) || level < 410){
-		if (level > 299){
-			document.getElementById("code1").value = "Расчет невозможен";
-			document.getElementById("code2").value = "Расчет невозможен";
-			document.getElementById("code3").value = "Расчет невозможен";
+	if (isNaN(level) || level < 50){
+		document.getElementById("code1").value = "Расчет невозможен";
+		document.getElementById("code2").value = "Расчет невозможен";
+		document.getElementById("code3").value = "Расчет невозможен";
 		return;
-		}
-		else{
-			level = level - 3;
-			KZval = calcKZ(level);
-			document.getElementById("code1").value = Math.floor(KZval*0.025);
-			document.getElementById("code2").value = Math.floor(KZval*0.07);
-			document.getElementById("code3").value = Math.floor(KZval*0.12);
-			return;
-		}
 	}
-	KZval = calcKZ(level);
-	document.getElementById("code1").value = Math.floor(KZval*0.025);
-	document.getElementById("code2").value = Math.floor(KZval*0.06);
-	document.getElementById("code3").value = Math.floor(KZval*0.1);
+	let KZlevel = level-3;
+	KZval = calcKZ(KZlevel);
+	if (KZval == 0){
+		document.getElementById("code1").value = "Расчет невозможен";
+		document.getElementById("code2").value = "Расчет невозможен";
+		document.getElementById("code3").value = "Расчет невозможен";
+		return;
+	}
+	let loc_code_num;
+	if (typeof code_num === 'undefined'){
+		loc_code_num = 3;
+	}
+	else{
+		if (parseInt(code_num[curracc]) >= 1 && parseInt(code_num[curracc]) <= 3)	loc_code_num = parseInt(code_num[curracc]);
+		else loc_code_num = 3;
+	}
+	if (KZlevel <= 300){
+		document.getElementById("code1").value = Math.floor(KZval*0.025);
+		document.getElementById("code2").value = Math.floor(KZval*0.07);
+		document.getElementById("code3").value = Math.floor(KZval*0.12);
+	}
+	else{
+		document.getElementById("code1").value = Math.floor(KZval*0.025);
+		document.getElementById("code2").value = Math.floor(KZval*0.06);
+		document.getElementById("code3").value = Math.floor(KZval*0.1);
+	}
+	if (level <= 100)	videoBonus = 5;
+	else if (level <= 150)	videoBonus = 6;
+	else if (level <= 200)	videoBonus = 7;
+	else if (level <= 300)	videoBonus = 9;
+	else 					videoBonus = 12;
+	document.getElementById('videoBonus').value = videoBonus;
+	switch (loc_code_num) {
+		case 1:
+			document.getElementById("needval").value = document.getElementById("code1").value;
+		break;
+		case 2:
+			document.getElementById("needval").value = document.getElementById("code2").value;
+		break;
+		case 3:
+			document.getElementById("needval").value = document.getElementById("code3").value;
+		break;
+	}
 }
 
 function code_copy (code){
