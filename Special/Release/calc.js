@@ -374,11 +374,12 @@ function calcSafe(){
 		document.getElementById("code2").value = Math.floor(KZval*0.06);
 		document.getElementById("code3").value = Math.floor(KZval*0.1);
 	}
-	if (level <= 100)	document.getElementById('videoBonus').value = 5;
-	else if (level <= 150)	document.getElementById('videoBonus').value = 6;
-	else if (level <= 200)	document.getElementById('videoBonus').value = 7;
-	else if (level <= 300)	document.getElementById('videoBonus').value = 9;
-	else 						document.getElementById('videoBonus').value = 12;
+	if (level <= 100)	videoBonus = 5;
+	else if (level <= 150)	videoBonus = 6;
+	else if (level <= 200)	videoBonus = 7;
+	else if (level <= 300)	videoBonus = 9;
+	else 					videoBonus = 12;
+	document.getElementById('videoBonus').value = videoBonus;
 	switch (loc_code_num) {
 		case 1:
 			document.getElementById("needval").value = document.getElementById("code1").value;
