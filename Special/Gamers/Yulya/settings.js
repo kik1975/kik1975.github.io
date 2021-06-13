@@ -5,6 +5,6 @@ var graalStr = ["2155,1552,1283","1113,861,662","",""];
 var accNames = ["Юля","Валек","",""];
 var accs = 2
 var begDates = [[2021, 4, 30],[2021, 4, 30],[2021, 2, 31],[2021, 2, 31]];
-var range = [315,315,133,133];
+var range = [316,315,133,133];
 var isLiteVersion = false;
 var isAutoLevel = [true,true,false,false];

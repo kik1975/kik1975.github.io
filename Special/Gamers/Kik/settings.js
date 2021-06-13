@@ -5,6 +5,6 @@ var graalStr = ["1270,756,540,386,276,983","","125,117,116",""];
 var accNames = ["ВКонтакте","Google","Facebook",""];
 var accs = 3;
 var begDates = [[2021, 4, 30],[2021, 2, 31],[2021, 4, 23],[2021, 2, 31]];
-var range = [315,133,292,133];
+var range = [316,133,292,133];
 var isLiteVersion = false;
 var isAutoLevel = [true,false,false,false];
