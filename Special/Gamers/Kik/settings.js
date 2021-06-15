@@ -1,7 +1,7 @@
-var videoBonuses = [12,12,6,12];
-var code_num = [3,1,3,3];
+var videoBonuses = [12,6,6,12];
+var code_num = [3,3,3,3];
 var baseStr = ["","163,131","96,89,90",""];
-var graalStr = ["1270,756,540,386,276,983","","125,117,116",""];
+var graalStr = ["1319,1021,287,401","212,170,142,109","125,117,116",""];
 var accNames = ["ВКонтакте","Google","Facebook",""];
 var accs = 3;
 var begDates = [[2021, 4, 30],[2021, 2, 31],[2021, 4, 23],[2021, 2, 31]];
