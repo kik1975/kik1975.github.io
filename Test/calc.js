@@ -24,6 +24,7 @@ function setComb(comb,subcomb){
 		currSubComb += subcomb;
 	}
 	altComb();
+	document.getElementById("cpy").disabled = false;
 };
 
 function altComb(){
@@ -106,6 +107,7 @@ function Init(){
 
 function strat() {
 	stratcalced = true;
+	document.getElementById("cpy").disabled = false;
 	document.getElementById("result").innerHTML = "";
      let enableCopy = false;
      let start = parseInt(document.getElementById("currval").value);
