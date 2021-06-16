@@ -311,7 +311,7 @@ function showstrat(){
 	if (strat1 != "" || combinations.length > 0){
 		let str = "";
 		if (strat1 != ""){
-			str += '<p>' + str1 + '</p>';
+			str += '<p>' + strat1 + '</p>';
 		}
 		if (combinations.length > 0){
 			str += '<p>' + combinations[currComb][currSubComb] + '</p>';
