@@ -3,10 +3,51 @@ var curracc = 0;
 var videoBonus = videoBonuses[curracc];
 var begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
 var diffDays;
+var combinations = [];
+var nComb;
+var strat1 = "";
+var currComb = 0;
+var currSubComb  = 0;
+var stratcalced = false;
 
 
 function diffDates() {
     return (currDate - begDate) / (60 * 60 * 24 * 1000);
+};
+
+function setComb(comb,subcomb){
+	if (comb != 0){
+		currComb += comb;
+		currSubComb = 0;
+	}
+	else{
+		currSubComb += subcomb;
+	}
+	altComb();
+};
+
+function altComb(){
+	if(!stratcalced) return;
+	var checkbox=document.getElementById('myAlt');
+	if(checkbox.checked){
+		if (currComb > 0) document.getElementById('downComb').style.visibility='visible';
+		else document.getElementById('downComb').style.visibility='hidden';
+		if (currComb < combinations.length-1) document.getElementById('upComb').style.visibility='visible';
+		else document.getElementById('upComb').style.visibility='hidden';
+		if (currSubComb > 0) document.getElementById('leftComb').style.visibility='visible';
+		else document.getElementById('leftComb').style.visibility='hidden';
+		if (currSubComb < combinations[currComb].length-1) document.getElementById('rightComb').style.visibility='visible';
+		else document.getElementById('rightComb').style.visibility='hidden';
+	}
+	else{
+		currComb = 0;
+		currSubComb  = 0;
+		document.getElementById('upComb').style.visibility='hidden';
+		document.getElementById('downComb').style.visibility='hidden';
+		document.getElementById('leftComb').style.visibility='hidden';
+		document.getElementById('rightComb').style.visibility='hidden';
+	}
+	if (stratcalced) showstrat();
 };
 
 function onclick(e){
@@ -22,6 +63,22 @@ function isUnlikely(x){
 }
 
 function Init(){
+	if (typeof userComb === 'undefined' || isNaN(parseInt(userComb))){
+		nComb = 6;
+	}
+	else{
+		nComb = parseInt(userComb);
+	}
+	if (typeof isAlt === 'undefined' || isAlt == false){
+		document.getElementById('myAlt').checked == false;
+	}
+	else{
+		document.getElementById('myAlt').checked == true;
+	}
+	document.getElementById('upComb').style.visibility='hidden';
+	document.getElementById('downComb').style.visibility='hidden';
+	document.getElementById('leftComb').style.visibility='hidden';
+	document.getElementById('rightComb').style.visibility='hidden';
 	document.getElementById('videoBonus').value = videoBonus;
 	document.getElementById("needval").value = "";
 	if (isAutoLevel[curracc]){
@@ -47,7 +104,8 @@ function Init(){
     }
 }
 
-  function strat() {
+function strat() {
+	stratcalced = true;
 	document.getElementById("result").innerHTML = "";
      let enableCopy = false;
      let start = parseInt(document.getElementById("currval").value);
@@ -92,29 +150,13 @@ function Init(){
 		document.getElementById("result").innerHTML = "Слишком большие множители";
 		return;
 	 }
-	 let str1 = strat1mult(multnum, diff);
+	 combinations = [];
+	 strat1 = strat1mult(multnum, diff);
 	 let str2 = strat2mult(multnum, diff);
-	 let str = "";
-	 if (str1 != ""){
-		str += '<p>' + str1 + '</p>';
+	 if (strat1 == "" && combinations.length == 0){
+		strat1 = strat3mult(multnum, diff);
 	 }
-	 if (str2 != ""){
-		str += '<p>' + str2 + '</p>';
-	 }
-	 if (str != ""){
-		document.getElementById("result").innerHTML = str;
-		document.getElementById("cpy").disabled = false;
-		return;
-	 }
-	 else {
-		str = strat3mult(multnum, diff);
-		 if (str != ""){
-			document.getElementById("result").innerHTML = str;
-			document.getElementById("cpy").disabled = false;
-			return;
-		 }
-	 }
-	 document.getElementById("result").innerHTML = "Стратегия не найдена";
+	 altComb();
   }
  function strat1mult(multnum, diff){
 	 let checkBox = document.getElementById("myCheck");
@@ -133,7 +175,8 @@ function Init(){
 	return "";
  }
 
- function strat2mult(multnum, diff){
+function strat2mult(multnum, diff){
+	combinations = [];
 	let checkBox = document.getElementById("myCheck");
 	let pair = new Array();
 	let pn = 0;
@@ -152,7 +195,8 @@ function Init(){
 		return b[0] - a[0];
 	});
 	let str1, str2;
-	for (pn = 0; pn < pair.length; pn++){
+	let combCount = 0;
+	for (pn = 0; pn < pair.length, combCount < nComb; pn++){
 		let i = pair[pn][1];
 		let j = pair[pn][2];
 		let maxmult = multnum[i][0];
@@ -187,7 +231,23 @@ function Init(){
 			str2 = '<font color="blue">' + String(multnum[j][0]) + '</font>' + "&#215;" + String(y0);
 		else 
 			str2 ='<font color="red">' +  "(" +  String(multnum[j][0]-multnum[j][1]) + "+" + String(multnum[j][1]) + ")</font>&#215;" + String(y0);
-		return str1  + "+" +  str2;
+		combinations[combCount] = [];
+		combinations[combCount].push( str1  + "+" +  str2);
+		while(x0 >= 3 && combinations[combCount].length < nComb){
+			y0 += beta;
+			x0 -= alpha;
+			if (isUnlikely(x0) || isUnlikely(y0)) continue;
+			if (multnum[i][1] == 0)
+				str1 = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(x0);
+			else 
+				str1 ='<font color="red">' +  "(" + String(multnum[i][0]-multnum[i][1]) + "+" + String(multnum[i][1]) + ")</font>&#215;" + String(x0);
+			if (multnum[j][1] == 0)
+				str2 = '<font color="blue">' + String(multnum[j][0]) + '</font>' + "&#215;" + String(y0);
+			else 
+				str2 ='<font color="red">' +  "(" +  String(multnum[j][0]-multnum[j][1]) + "+" + String(multnum[j][1]) + ")</font>&#215;" + String(y0);
+			combinations[combCount].push( str1  + "+" +  str2);
+		}
+		combCount++;
 	}
 	return "";
  }
@@ -247,6 +307,20 @@ function Init(){
 	}
 	return "";
  }
+function showstrat(){
+	if (strat1 != "" || combinations.length > 0){
+		let str = "";
+		if (strat1 != ""){
+			str += '<p>' + str1 + '</p>';
+		}
+		if (combinations.length > 0){
+			str += '<p>' + combinations[currComb][currSubComb] + '</p>';
+		}
+		document.getElementById("result").innerHTML = str;
+		return;
+	}
+	document.getElementById("result").innerHTML = "Стратегия не найдена";
+};
 
 function gcd (x, y, s1=1, s2=0, t1=0, t2=1) {
 	let q = Math.floor(x/y),
