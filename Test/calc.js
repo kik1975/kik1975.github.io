@@ -110,6 +110,8 @@ function strat() {
 	document.getElementById("cpy").disabled = false;
 	document.getElementById("result").innerHTML = "";
      let enableCopy = false;
+		currComb = 0;
+		currSubComb  = 0;
      let start = parseInt(document.getElementById("currval").value);
      let end = parseInt(document.getElementById("needval").value);
 	 if (start >= end){
