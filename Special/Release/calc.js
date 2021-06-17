@@ -200,7 +200,8 @@ function strat2mult(multnum, diff){
 	});
 	let str1, str2;
 	let combCount = 0;
-	for (pn = 0; pn < pair.length, combCount < nComb; pn++){
+	for (pn = 0; pn < pair.length; pn++){
+		if (combCount == nComb) break;
 		let i = pair[pn][1];
 		let j = pair[pn][2];
 		let maxmult = multnum[i][0];
