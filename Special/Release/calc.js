@@ -31,14 +31,18 @@ function altComb(){
 	if(!stratcalced) return;
 	var checkbox=document.getElementById('myAlt');
 	if(checkbox.checked){
-		if (currComb > 0) document.getElementById('downComb').style.visibility='visible';
-		else document.getElementById('downComb').style.visibility='hidden';
-		if (currComb < combinations.length-1) document.getElementById('upComb').style.visibility='visible';
-		else document.getElementById('upComb').style.visibility='hidden';
-		if (currSubComb > 0) document.getElementById('leftComb').style.visibility='visible';
-		else document.getElementById('leftComb').style.visibility='hidden';
-		if (currSubComb < combinations[currComb].length-1) document.getElementById('rightComb').style.visibility='visible';
-		else document.getElementById('rightComb').style.visibility='hidden';
+		document.getElementById('upComb').style.visibility='visible';
+		document.getElementById('downComb').style.visibility='visible';
+		document.getElementById('leftComb').style.visibility='visible';
+		document.getElementById('rightComb').style.visibility='visible';
+		if (currComb > 0) document.getElementById('downComb').disabled=false;
+		else document.getElementById('downComb').disabled=true;
+		if (currComb < combinations.length-1) document.getElementById('upComb').disabled=false;
+		else document.getElementById('upComb').disabled=true;
+		if (currSubComb > 0) document.getElementById('leftComb').disabled=false;
+		else document.getElementById('leftComb').disabled=true;
+		if (currSubComb < combinations[currComb].length-1) document.getElementById('rightComb').disabled=false;
+		else document.getElementById('rightComb').disabled=true;
 	}
 	else{
 		currComb = 0;
@@ -65,7 +69,7 @@ function isUnlikely(x){
 
 function Init(){
 	if (typeof userComb === 'undefined' || isNaN(parseInt(userComb))){
-		nComb = 6;
+		nComb = 10;
 	}
 	else{
 		nComb = parseInt(userComb);
