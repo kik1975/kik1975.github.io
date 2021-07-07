@@ -35,14 +35,22 @@ function altComb(){
 		document.getElementById('downComb').style.visibility='visible';
 		document.getElementById('leftComb').style.visibility='visible';
 		document.getElementById('rightComb').style.visibility='visible';
-		if (currComb > 0) document.getElementById('downComb').disabled=false;
-		else document.getElementById('downComb').disabled=true;
-		if (currComb < combinations.length-1) document.getElementById('upComb').disabled=false;
-		else document.getElementById('upComb').disabled=true;
-		if (currSubComb > 0) document.getElementById('leftComb').disabled=false;
-		else document.getElementById('leftComb').disabled=true;
-		if (currSubComb < combinations[currComb].length-1) document.getElementById('rightComb').disabled=false;
-		else document.getElementById('rightComb').disabled=true;
+		if (combinations.length == 0){
+			document.getElementById('downComb').disabled=true;
+			document.getElementById('upComb').disabled=true;
+			document.getElementById('leftComb').disabled=true;
+			document.getElementById('rightComb').disabled=true;
+		}
+		else{
+			if (currComb > 0) document.getElementById('downComb').disabled=false;
+			else document.getElementById('downComb').disabled=true;
+			if (currComb < combinations.length-1) document.getElementById('upComb').disabled=false;
+			else document.getElementById('upComb').disabled=true;
+			if (currSubComb > 0) document.getElementById('leftComb').disabled=false;
+			else document.getElementById('leftComb').disabled=true;
+			if (currSubComb < combinations[currComb].length-1) document.getElementById('rightComb').disabled=false;
+			else document.getElementById('rightComb').disabled=true;
+		}
 	}
 	else{
 		currComb = 0;
