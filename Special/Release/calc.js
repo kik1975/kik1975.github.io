@@ -1,4 +1,6 @@
+var HourCorrection = 3;
 var currDate = new Date();
+currDate.setHours(currDate.getHours()-HourCorrection);
 var curracc = 0;
 var videoBonus = videoBonuses[curracc];
 var begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
