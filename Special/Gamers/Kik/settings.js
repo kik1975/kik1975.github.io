@@ -1,8 +1,8 @@
 var isLiteVersion = false;
-var graalStr = ["2530,1506,1076,769,549","85,111,144,186,278","",""];
+var graalStr = ["","","",""];
 var accs = 3;
 var accNames = ["ВКонтакте","Google","Facebook",""];
-var baseStr = ["2200,1310,936,668,478,521","232,155,120,92,71","",""];
+var baseStr = ["514,719,1007,1410,2368","258,173,133,103,79","",""];
 var videoBonuses = [12,9,7,12];
 var isAutoLevel = [true,false,false,false];
 var begDates = [[2021, 4, 30],[2021, 2, 31],[2021, 4, 23],[2021, 2, 31]];
