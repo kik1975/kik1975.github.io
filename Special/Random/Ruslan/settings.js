@@ -7,4 +7,4 @@ var accs = 2
 var begDates = [[2021, 9, 20],[2021, 9, 20],[2021, 2, 31],[2021, 2, 31]];
 var range = [266,266,133,133];
 var isLiteVersion = false;
-var isAutoLevel = [false,true,false,false];
+var isAutoLevel = [false,false,false,false];
