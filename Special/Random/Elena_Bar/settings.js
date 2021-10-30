@@ -5,6 +5,6 @@ var graalStr = ["2225,1589,1249,1041,1457,1325","408,382,328,302,298,125","",""]
 var accNames = ["ВКонтакте","Одноклассники","",""];
 var accs = 2
 var begDates = [[2021, 9, 20],[2021, 9, 20],[2021, 2, 31],[2021, 2, 31]];
-var range = [1665,266,133,133];
+var range = [1668,266,133,133];
 var isLiteVersion = false;
 var isAutoLevel = [true,true,false,false];
