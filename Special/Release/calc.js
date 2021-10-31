@@ -66,7 +66,9 @@ function altComb(){
 };
 
 function onclick(e){
-    curracc = parseInt(e.target.value);
+	var newacc =  parseInt(e.target.value);
+	if (curracc != newacc) document.getElementById("mults").value = "";
+    curracc = newacc;
 	videoBonus = videoBonuses[curracc];
 	begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
 	Init();
