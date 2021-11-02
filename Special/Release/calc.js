@@ -67,7 +67,10 @@ function altComb(){
 
 function onclick(e){
 	var newacc =  parseInt(e.target.value);
-	if (curracc != newacc) document.getElementById("mults").value = "";
+	if (curracc != newacc){
+		document.getElementById("mults").value = "";
+		document.getElementById("currval").value = "0";
+	}
     curracc = newacc;
 	videoBonus = videoBonuses[curracc];
 	begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
