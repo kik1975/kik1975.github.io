@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keyw||ds" content="">
+    <title>Сейф v2.0</title>
+  <style>
+   .redtext {
+     color: red; /* Красный цвет выделения */
+   }
+  </style>
+  <style>
+   .bluetext {
+     color: blue; /* Синий цвет выделения */
+   }
+  </style>
+  <style>
+  input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 2px solid #ddd;
+  display: inline-flex;
+  visibility: hidden;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 2px;
+  background-color: #212121;
+  transform: translate(-50%, -50%);
+}
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  font-family: sans-serif;
+  max-width: 5rem;
+  padding: .5rem;
+  border: solid #ddd;
+  border-width: 0 2px;
+  font-size: 2rem;
+  height: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+</style>
+<script src="settings.js"></script>
+<script src="calc_cp.js"></script>
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body  onload="Init()">
+<h1>
+<table>
+  <tr>
+    <td>Текущие очки</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="currval" value="0"></td>
+  </tr>
+  <tr>
+    <td>Цель</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="needval" value="450000"></td>
+  </tr>
+  <tr>
+    <td>Множители</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="Множители" id="mults" value=""></td>
+  </tr>
+</table>
+<p style = "margin-top: 1px;">
+<form name="accForm">
+    <input type="radio" name="accs" hidden checked="checked" value="0" /> <span id = "nm0"></span>
+    <input type="radio" name="accs" hidden value="1" /> <span id = "nm1"></span>
+    <input type="radio" name="accs" hidden value="2" /> <span id = "nm2"></span>
+    <input type="radio" name="accs" hidden value="3" /> <span id = "nm3"></span>
+</form>
+</p>
+<p><input style="font-size: 30px;" type="button" value="без Грааля" id="Graal" onclick="setmulty(0)"> 
+    <input style="font-size: 30px;" type="button" value="с Граалем" id="noGraal" onclick="setmulty(1)"> 
+    <input style="font-size: 30px;" type="button" value="Очистить" id="clearmult" onclick="clearmulty()"> </p>
+
+<table>
+  <p>Не использовать маловероятные комбинации <input style="transform:scale(2.0);font-size: 30px;" type="checkbox" name="" value=""  id="myCheck" checked></p> 
+</table>
+  <table>
+  <tr>
+  <td>Применять видеобонус  <input style="transform:scale(2.0);font-size: 30px;" type="checkbox" name="" value=""  id="videoCheck" onclick="checkVB()"> </td>
+  <td style="padding-left: 20px;">
+	<div class="number-input" id="videoBlock" style="visibility='hidden';">
+		<button onclick="downBonus()" ></button>
+	  <input class="quantity" min="1" max = "20" name="quantity" value="12" type="number" id = "videoBonus" onchange="setBonus()">
+	  <button onclick="upBonus()" class="plus"></button>
+	</div>
+	</td> 
+	</tr>
+</table>
+<table>
+<tr>
+<td>
+  <p>Альтернативные комбинации <input style="transform:scale(2.0);font-size: 30px;" type="checkbox" name="" value=""  id="myAlt" onclick="altComb()">
+  </p>
+</td> 
+<td>
+<p>&emsp; </p>
+</td>
+<td>
+<input style="font-size: 30px; visibility='hidden';" type="button" value="&#9650" id="upComb" onclick="setComb(1,0)">
+</td> 
+<td>
+<p>&nbsp; </p>
+</td>
+<td>
+<input style="font-size: 30px; visibility='hidden';" type="button" value="&#9660" id="downComb" onclick="setComb(-1,0)">
+</td> 
+<td>
+<p>&emsp; </p>
+</td>
+<td>
+<input style="font-size: 30px; visibility='hidden';" type="button" value="&#9658" id="rightComb" onclick="setComb(0,1)">
+</td> 
+<td>
+<p>&nbsp; </p>
+</td>
+<td>
+<input style="font-size: 30px; visibility='hidden';" type="button" value="&#9668" id="leftComb" onclick="setComb(0,-1)">
+</td> 
+
+</tr>
+</table>  
+<p><input style="font-size: 30px;" type="button" value="Рассчитать" id="calc" onclick="strat()"> 
+    <input style="font-size: 30px;" type="button" value="Скопировать" id="cpy" onclick="copystrat()" > 
+	<a href="../../Release/слово.html" target="_blank">Памятка</a>
+</p>
+<p><div style="font-size: 30px;font-family: Verdana, Arial, Helvetica, sans-serif;" name="" id="result"></div></p>
+<table>
+  <tr>
+    <td>Уровень</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="level" value=""></td>
+	<td><input style="font-size: 30px;" type="button" value="Рассчитать" id="code_calc" onclick="calcSafe()"> </td>
+  </tr>
+  <tr>
+    <td>1-й код</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="code1" value=""></td>
+	<td><input style="font-size: 30px;" type="button" value="Скопировать" id="code1_copy" onclick="code_copy (1)" > </td>
+  </tr>
+  <tr>
+    <td>2-й код</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="code2" value=""></td>
+	<td><input style="font-size: 30px;" type="button" value="Скопировать" id="code2_copy" onclick="code_copy (2)"> </td>
+  </tr>
+  <tr>
+    <td>3-й код</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="code3" value=""></td>
+	<td><input style="font-size: 30px;" type="button" value="Скопировать" id="code3_copy" onclick="code_copy (3)"> </td>
+  </tr>
+ </table>
+</h1>
+</body>
+</html>
