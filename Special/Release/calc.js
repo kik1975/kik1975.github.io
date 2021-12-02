@@ -273,6 +273,7 @@ function strat2mult(multnum, diff){
 		}
 		combCount++;
 	}
+	if (combCount > 0) return combinations[0];
 	return "";
  }
  
@@ -321,6 +322,7 @@ function strat2mult(multnum, diff){
 			multnum1[1][1] = multnum[k][1];
 			str2 = strat2mult(multnum1, diff1);
 			if (str2 != ""){
+				combinations = [];
 				if (multnum[i][1] == 0)
 					str1 = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(x0);
 				else 

@@ -1,4 +1,6 @@
+var HourCorrection = 3;
 var currDate = new Date();
+currDate.setHours(currDate.getHours()-HourCorrection);
 var curracc = 0;
 var videoBonus = videoBonuses[curracc];
 var begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
@@ -64,7 +66,12 @@ function altComb(){
 };
 
 function onclick(e){
-    curracc = parseInt(e.target.value);
+	var newacc =  parseInt(e.target.value);
+	if (curracc != newacc){
+		document.getElementById("mults").value = "";
+		document.getElementById("currval").value = "0";
+	}
+    curracc = newacc;
 	videoBonus = videoBonuses[curracc];
 	begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
 	Init();
@@ -266,6 +273,7 @@ function strat2mult(multnum, diff){
 		}
 		combCount++;
 	}
+	if (combCount > 0) return combinations[0];
 	return "";
  }
  
@@ -314,6 +322,7 @@ function strat2mult(multnum, diff){
 			multnum1[1][1] = multnum[k][1];
 			str2 = strat2mult(multnum1, diff1);
 			if (str2 != ""){
+				combinations = [];
 				if (multnum[i][1] == 0)
 					str1 = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(x0);
 				else 
