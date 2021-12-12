@@ -90,15 +90,19 @@ input[type=number]::-webkit-outer-spin-button {
   <tr>
     <td>Текущие очки</td>
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="currval" value="0"></td>
+	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="0" id="zero_currval" onclick="zero_currval()"></td>
+	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_currval" onclick="clear_currval()"></td>
   </tr>
   <tr>
     <td>Цель</td>
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="needval" value="450000"></td>
+	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_needval" onclick="clear_needval()"></td>
   </tr>
   <tr>
     <td>Множители</td>
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="Множители" id="mults" value=""></td>
-  </tr>
+	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_mults" onclick="clear_mults()"></td>
+ </tr>
 </table>
 <p style = "margin-top: 1px;">
 <form name="accForm">
@@ -110,7 +114,7 @@ input[type=number]::-webkit-outer-spin-button {
 </p>
 <p><input style="font-size: 30px;" type="button" value="без Грааля" id="Graal" onclick="setmulty(0)"> 
     <input style="font-size: 30px;" type="button" value="с Граалем" id="noGraal" onclick="setmulty(1)"> 
-    <input style="font-size: 30px;" type="button" value="Очистить" id="clearmult" onclick="clearmulty()"> </p>
+ </p>
 
 <table>
   <p>Не использовать маловероятные комбинации <input style="transform:scale(2.0);font-size: 30px;" type="checkbox" name="" value=""  id="myCheck" checked></p> 

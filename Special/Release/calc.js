@@ -507,3 +507,16 @@ function code_copy (code){
 			document.getElementById("needval").value = parseInt(document.getElementById("code3").value);
 	}
 }
+
+function zero_currval(){
+	document.getElementById("currval").value = "0";
+}
+function clear_currval(){
+	document.getElementById("currval").value = "";
+}
+function clear_needval(){
+	document.getElementById("needval").value = "";
+}
+function clear_mults(){
+	document.getElementById("mults").value = "";
+}
