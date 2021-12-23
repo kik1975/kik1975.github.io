@@ -513,9 +513,19 @@ function zero_currval(){
 }
 function clear_currval(){
 	document.getElementById("currval").value = "";
+	var target = document.getElementById("currval");
+	if (event.target != target) {
+		target.focus();
+		target.click();
+	}
 }
 function clear_needval(){
 	document.getElementById("needval").value = "";
+	var target = document.getElementById("needval");
+	if (event.target != target) {
+		target.focus();
+		target.click();
+	}
 }
 function clear_mults(){
 	document.getElementById("mults").value = "";
