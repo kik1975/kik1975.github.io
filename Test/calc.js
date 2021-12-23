@@ -510,13 +510,13 @@ function code_copy (code){
 
 function zero_currval(){
 	document.getElementById("currval").value = "0";
-	var target = document.getElementById("currval")[0];
+}
+function clear_currval(){
+	var target = document.getElementById("currval");
 	if (event.target != target) {
 		target.focus();
 		target.click();
 	}
-}
-function clear_currval(){
 	document.getElementById("currval").value = "";
 }
 function clear_needval(){
