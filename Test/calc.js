@@ -718,8 +718,8 @@ function show_strats(){
 			document.getElementById("m2right").disabled = false;
 			document.getElementById("m2left").disabled = true;
 		} else{
-			document.getElementById("mult2").innerHTML = strat3arr[0][arrcomb2[1]].strat;
-			document.getElementById("m2right").disabled = arrcomb2[1] < strat3arr[0].length-1 ? false : true;
+			document.getElementById("mult2").innerHTML = strat2arr[0][arrcomb2[1]].strat;
+			document.getElementById("m2right").disabled = arrcomb2[1] < strat2arr[0].length-1 ? false : true;
 			document.getElementById("m2left").disabled = arrcomb2[1] > 0 ? false : true;
 		}
 	} else {
@@ -744,8 +744,8 @@ function show_strats(){
 				document.getElementById("m2right").disabled = false;
 				document.getElementById("m2left").disabled = true;
 			} else{
-				document.getElementById("mult2").innerHTML = strat3arr[0][arrcomb2[1]].strat;
-				document.getElementById("m2right").disabled = arrcomb2[1] < strat3arr[0].length-1 ? false : true;
+				document.getElementById("mult2").innerHTML = strat2arr[0][arrcomb2[1]].strat;
+				document.getElementById("m2right").disabled = arrcomb2[1] < strat2arr[0].length-1 ? false : true;
 				document.getElementById("m2left").disabled = arrcomb2[1] > 0 ? false : true;
 			}
 		}
