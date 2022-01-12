@@ -5,12 +5,19 @@
     <meta name="description" content="">
     <meta name="keyw||ds" content="">
     <title>Сейф v3.0</title>
-  <style>
+<style>
+header {
+ display: block; /* Для старых браузеров */
+ height: 100px; /* Высота шапки */
+  background-color: #cfd5d3;  - фоновый цвет (можно не задавать)
+  margin-bottom: 10px;    - отступ снизу
+
+}
+<style>
+ <style>
    .redtext {
      color: red; /* Красный цвет выделения */
    }
-  </style>
-  <style>
    .bluetext {
      color: blue; /* Синий цвет выделения */
    }
@@ -77,12 +84,12 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: bold;
   text-align: center;
 }
-   body {
-    -moz-background-size: 100%; /* Firefox 3.6+ */
-    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: 100%; /* Opera 9.6+ */
-    background-size: cover; /* Современные браузеры */
-   }
+body {
+-moz-background-size: 100%; /* Firefox 3.6+ */
+-webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+-o-background-size: 100%; /* Opera 9.6+ */
+background-size: cover; /* Современные браузеры */
+}
 
 </style>
 <script src="settings.js"></script>
@@ -92,6 +99,13 @@ input[type=number]::-webkit-outer-spin-button {
     <![endif]-->
   </head>
   <body  onload="Init()">
+    <header>
+   <div>
+   <center>
+    <img src="headerpic.jpg"  >
+	</center>
+   </div>
+ </header>
 <h1>
 <table>
   <tr>
