@@ -494,6 +494,7 @@ function copystrat() {
 function setmulty(mode) {
 	if (mode == 1) document.getElementById("mults").value = graalStr[curracc];
 	else document.getElementById("mults").value = baseStr[curracc];
+	clear_strats();
 }
 
 
