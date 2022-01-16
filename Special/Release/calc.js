@@ -11,7 +11,12 @@ var strat1 = "";
 var currComb = 0;
 var currSubComb  = 0;
 var stratcalced = false;
-
+var strat1arr = [];
+var strat2arr = [];
+var strat3arr = [];
+var arrcomb1 = 0;
+var arrcomb2 = [0,0];
+var arrcomb3 = 0;
 
 function diffDates() {
     return (currDate - begDate) / (60 * 60 * 24 * 1000);
@@ -31,37 +36,6 @@ function setComb(comb,subcomb){
 
 function altComb(){
 	if(!stratcalced) return;
-	var checkbox=document.getElementById('myAlt');
-	if(checkbox.checked){
-		document.getElementById('upComb').style.visibility='visible';
-		document.getElementById('downComb').style.visibility='visible';
-		document.getElementById('leftComb').style.visibility='visible';
-		document.getElementById('rightComb').style.visibility='visible';
-		if (combinations.length == 0){
-			document.getElementById('downComb').disabled=true;
-			document.getElementById('upComb').disabled=true;
-			document.getElementById('leftComb').disabled=true;
-			document.getElementById('rightComb').disabled=true;
-		}
-		else{
-			if (currComb > 0) document.getElementById('downComb').disabled=false;
-			else document.getElementById('downComb').disabled=true;
-			if (currComb < combinations.length-1) document.getElementById('upComb').disabled=false;
-			else document.getElementById('upComb').disabled=true;
-			if (currSubComb > 0) document.getElementById('leftComb').disabled=false;
-			else document.getElementById('leftComb').disabled=true;
-			if (currSubComb < combinations[currComb].length-1) document.getElementById('rightComb').disabled=false;
-			else document.getElementById('rightComb').disabled=true;
-		}
-	}
-	else{
-		currComb = 0;
-		currSubComb  = 0;
-		document.getElementById('upComb').style.visibility='hidden';
-		document.getElementById('downComb').style.visibility='hidden';
-		document.getElementById('leftComb').style.visibility='hidden';
-		document.getElementById('rightComb').style.visibility='hidden';
-	}
 	if (stratcalced) showstrat();
 };
 
@@ -84,27 +58,17 @@ function isUnlikely(x){
 
 function Init(){
 	if (typeof userComb === 'undefined' || isNaN(parseInt(userComb))){
-		nComb = 10;
+		nComb = 6;
 	}
 	else{
 		nComb = parseInt(userComb);
 	}
-	if (typeof isAlt === 'undefined' || isAlt == false){
-		document.getElementById('myAlt').checked == false;
-	}
-	else{
-		document.getElementById('myAlt').checked == true;
-	}
-	document.getElementById('upComb').style.visibility='hidden';
-	document.getElementById('downComb').style.visibility='hidden';
-	document.getElementById('leftComb').style.visibility='hidden';
-	document.getElementById('rightComb').style.visibility='hidden';
 	document.getElementById('videoBonus').value = videoBonus;
 	document.getElementById("needval").value = "";
 	if (isAutoLevel[curracc]){
 		diffDays = parseInt(diffDates());
 		document.getElementById("level").value = range[curracc]+diffDays*3;
-		calcSafe();
+		calcSafe(0);
 	}
 	else{
 		document.getElementById("level").value = "";
@@ -125,13 +89,22 @@ function Init(){
 }
 
 function strat() {
-	stratcalced = true;
-	document.getElementById("cpy").disabled = false;
 	document.getElementById("result").innerHTML = "";
      let enableCopy = false;
 		currComb = 0;
 		currSubComb  = 0;
+	arrcomb1 = 0;
+	arrcomb2 = [0,0];
+	arrcomb3 = 0;
+	if (isNaN(parseInt(document.getElementById('currval').value))){
+	     document.getElementById("result").innerHTML = "Отсутствуют текущие очки";
+    	 return;
+	}
      let start = parseInt(document.getElementById("currval").value);
+	if (isNaN(parseInt(document.getElementById('needval').value))){
+	     document.getElementById("result").innerHTML = "Отсутствует цель";
+    	 return;
+	}
      let end = parseInt(document.getElementById("needval").value);
 	 if (start >= end){
 	    document.getElementById("result").innerHTML = "Цель меньше текущего результата";
@@ -176,26 +149,41 @@ function strat() {
 	 combinations = [];
 	 strat1 = strat1mult(multnum, diff);
 	 let str2 = strat2mult(multnum, diff);
+	 let strat3 = strat3mult(multnum, diff);
 	 if (strat1 == "" && combinations.length == 0){
-		strat1 = strat3mult(multnum, diff);
+		strat1 = strat3;
 	 }
 	 altComb();
+	 stratcalced = true;
+	 show_strats();
   }
  function strat1mult(multnum, diff){
 	 let checkBox = document.getElementById("myCheck");
+	 let j = 0;
+	 strat1arr = [];
 	 for (var i = 0; i < multnum.length; i++){
 		let up = Math.floor(diff/multnum[i][0]);
 		let rest = diff%multnum[i][0];
 		if (up < 3) continue;
 		if (checkBox.checked == true && isUnlikely(up)) continue;
 		if(rest == 0){
-			if (multnum[i][1] == 0)
-				return '<font color="blue">' + String(multnum[i][0]) + '</font>' + "x" + String(up);
-			else
-				return '<font color="red">' +  "(" + String(multnum[i][0]-multnum[i][1]) + "+" + String(multnum[i][1]) + ")</font>x" + String(up);
+			let newStrat = new Object();
+			if (multnum[i][1] == 0){
+				newStrat.strat = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(up);
+			}
+			else{
+				newStrat.strat = '<font color="red">' +  "(" + String(multnum[i][0]-multnum[i][1]) + "+" + String(multnum[i][1]) + ")</font>&#215;" + String(up);
+			}
+			newStrat.count = up;
+			strat1arr.push(newStrat);
+			j++;
 		}
 	}
-	return "";
+	if (j > 0) strat1arr.sort(function(a, b){
+									return a.count-b.count;
+								});
+	if (j > 0) return strat1arr[0].strat;
+	else return "";
  }
 
 function strat2mult(multnum, diff){
@@ -219,6 +207,7 @@ function strat2mult(multnum, diff){
 	});
 	let str1, str2;
 	let combCount = 0;
+	strat2arr = [];
 	for (pn = 0; pn < pair.length; pn++){
 		if (combCount == nComb) break;
 		let i = pair[pn][1];
@@ -256,7 +245,14 @@ function strat2mult(multnum, diff){
 		else 
 			str2 ='<font color="red">' +  "(" +  String(multnum[j][0]-multnum[j][1]) + "+" + String(multnum[j][1]) + ")</font>&#215;" + String(y0);
 		combinations[combCount] = [];
+		strat2arr[combCount] = [];
+		let counter = 0;
 		combinations[combCount].push( str1  + "+" +  str2);
+		let newStrat = new Object();
+		newStrat.strat = str1  + "+" +  str2;
+		newStrat.count = x0+y0;
+		strat2arr[combCount].push(newStrat);
+		counter++;
 		while(x0 >= 3 && combinations[combCount].length < nComb){
 			y0 += beta;
 			x0 -= alpha;
@@ -270,15 +266,94 @@ function strat2mult(multnum, diff){
 			else 
 				str2 ='<font color="red">' +  "(" +  String(multnum[j][0]-multnum[j][1]) + "+" + String(multnum[j][1]) + ")</font>&#215;" + String(y0);
 			combinations[combCount].push( str1  + "+" +  str2);
+			newStrat = new Object();
+			newStrat.strat = str1  + "+" +  str2;
+			newStrat.count = x0+y0;
+			strat2arr[combCount].push(newStrat);
+			counter++;
 		}
 		combCount++;
+	}
+	if (combCount > 0){
+		for (var cc = 0; cc < combCount; cc++){
+			strat2arr[cc].sort(function(a, b){
+							return a.count-b.count;
+			});
+		}
+		strat2arr.sort(function(a, b){
+						return a[0].count-b[0].count;
+		});
 	}
 	if (combCount > 0) return combinations[0];
 	return "";
  }
+
+
+function strat2mult_light(multnum, diff){
+	let checkBox = document.getElementById("myCheck");
+	let pair = new Array();
+	let pn = 0;
+	let res_obj = {};
+	res_obj.count = 0;
+	res_obj.strat = "";
+	for (var i = 0; i < multnum.length; i++){
+		for (var j = i+1; j < multnum.length; j++ ){
+			if (diff % nod2(multnum[i][0],multnum[j][0]) != 0) continue;
+			pair[pn] = [];
+			pair[pn][0] = multnum[i][0] + multnum[j][0];
+			pair[pn][1] = i;
+			pair[pn][2] = j;
+			pn++;
+		}
+	}
+	if (pair.length == 0) return "";
+	pair.sort(function(a, b) {
+		return b[0] - a[0];
+	});
+	let str1, str2;
+	for (pn = 0; pn < pair.length; pn++){
+		let i = pair[pn][1];
+		let j = pair[pn][2];
+		let maxmult = multnum[i][0];
+		let minmult = multnum[j][0];
+		let arr = gcd (maxmult, minmult, s1=1, s2=0, t1=0, t2=1);
+		if (arr[1] < 0 && arr[2] < 0) continue;
+		let k = diff / arr[0];
+		let x0 = k*arr[1];
+		let y0 = k*arr[2];
+		let alpha = minmult / arr[0];
+		let beta = maxmult / arr[0];
+		let t = Math.floor(y0/beta);
+		x0 = x0 + t*alpha;
+		y0 = y0 - t*beta;
+		while (y0 < 3){
+			y0 += beta;
+			x0 -= alpha;
+		}
+		if (checkBox.checked == true){
+			while (isUnlikely(y0)){
+				y0 += beta;
+				x0 -= alpha;
+			}
+		}
+		if (x0 < 3) continue;
+		if (checkBox.checked == true && isUnlikely(x0)) continue;
+		if (multnum[i][1] == 0)
+			str1 = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(x0);
+		else 
+			str1 ='<font color="red">' +  "(" + String(multnum[i][0]-multnum[i][1]) + "+" + String(multnum[i][1]) + ")</font>&#215;" + String(x0);
+		if (multnum[j][1] == 0)
+			str2 = '<font color="blue">' + String(multnum[j][0]) + '</font>' + "&#215;" + String(y0);
+		else 
+			str2 ='<font color="red">' +  "(" +  String(multnum[j][0]-multnum[j][1]) + "+" + String(multnum[j][1]) + ")</font>&#215;" + String(y0);
+		res_obj.strat = str1  + "+" +  str2;
+		res_obj.count = x0+y0;
+		break;
+	}
+	return res_obj;
+ }
  
- 
- function strat3mult(multnum, diff){
+function strat3mult(multnum, diff){
 	if (multnum.length < 3) return "";
 	let checkBox = document.getElementById("myCheck");
 	let three = new Array();
@@ -301,7 +376,10 @@ function strat2mult(multnum, diff){
 		return b[0] - a[0];
 	});
 	let str1, str2;
+	strat3arr = [];
+	let counter = 0;
 	for (pn = 0; pn < three.length; pn++){
+		if (counter  >= nComb) break;
 		let i = three[pn][1];
 		let j = three[pn][2];
 		let k = three[pn][3];
@@ -320,17 +398,26 @@ function strat2mult(multnum, diff){
 			multnum1[1] = [];
 			multnum1[1][0] = multnum[k][0];
 			multnum1[1][1] = multnum[k][1];
-			str2 = strat2mult(multnum1, diff1);
-			if (str2 != ""){
-				combinations = [];
+			let res_obj = {};
+			res_obj = strat2mult_light(multnum1, diff1);
+			if (res_obj.count > 0){
 				if (multnum[i][1] == 0)
 					str1 = '<font color="blue">' + String(multnum[i][0]) + '</font>' + "&#215;" + String(x0);
 				else 
 					str1 ='<font color="red">' +  "(" + String(multnum[i][0]-multnum[i][1]) + "+" + String(multnum[i][1]) + ")</font>&#215;" + String(x0);
-				return str1  + "+" +  str2;
+				let newStrat = new Object();;
+				newStrat.strat = str1  + "+" +  res_obj.strat;
+				newStrat.count = x0  + res_obj.count;
+				strat3arr.push(newStrat);
+				counter ++;
+				break;
 			}
 		}
 	}
+	if (counter > 0) strat3arr.sort(function(a, b){
+									return a.count-b.count;
+								});
+	if (counter > 0) return strat3arr[0].strat;
 	return "";
  }
 function showstrat(){
@@ -342,10 +429,8 @@ function showstrat(){
 		if (combinations.length > 0){
 			str += '<p>' + combinations[currComb][currSubComb] + '</p>';
 		}
-		document.getElementById("result").innerHTML = str;
 		return;
 	}
-	document.getElementById("result").innerHTML = "Стратегия не найдена";
 };
 
 function gcd (x, y, s1=1, s2=0, t1=0, t2=1) {
@@ -375,6 +460,7 @@ function checkVB() {
   else{
   	document.getElementById('videoBlock').style.visibility='hidden';
   }
+  clear_strats();
 }
 function setBonus() {
   videoBonus = parseInt(document.getElementById('videoBonus').value);
@@ -385,6 +471,7 @@ function downBonus(){
   let minVal = parseInt(document.getElementById('videoBonus').min);
   if (currVal > minVal ) document.getElementById('videoBonus').value = currVal - 1;
   videoBonus = parseInt(document.getElementById('videoBonus').value);
+  clear_strats();
 }
 
 function upBonus(){
@@ -392,6 +479,7 @@ function upBonus(){
   let maxVal = parseInt(document.getElementById('videoBonus').max);
   if (currVal < maxVal ) document.getElementById('videoBonus').value = currVal + 1;
   videoBonus = parseInt(document.getElementById('videoBonus').value);
+  clear_strats();
 }
 function copystrat() {
 	var range = document.createRange();
@@ -406,6 +494,7 @@ function copystrat() {
 function setmulty(mode) {
 	if (mode == 1) document.getElementById("mults").value = graalStr[curracc];
 	else document.getElementById("mults").value = baseStr[curracc];
+	clear_strats();
 }
 
 
@@ -440,9 +529,18 @@ function calcKZ(level){
 	return val;
 }
 
-function calcSafe(){
+function calcSafe(corr){
 	level = parseInt(document.getElementById("level").value);
+	clear_strats();
 	if (isNaN(level) || level < 50){
+		document.getElementById("code1").value = "Расчет невозможен";
+		document.getElementById("code2").value = "Расчет невозможен";
+		document.getElementById("code3").value = "Расчет невозможен";
+		return;
+	}
+	level = level + parseInt(corr);
+	document.getElementById("level").value = String(level);
+	if (level < 50){
 		document.getElementById("code1").value = "Расчет невозможен";
 		document.getElementById("code2").value = "Расчет невозможен";
 		document.getElementById("code3").value = "Расчет невозможен";
@@ -494,6 +592,7 @@ function calcSafe(){
 }
 
 function code_copy (code){
+	clear_strats();
 	if (parseInt(code) == 1) {
 		if (!isNaN(parseInt(document.getElementById("code1").value)))
 			document.getElementById("needval").value = parseInt(document.getElementById("code1").value);
@@ -510,9 +609,11 @@ function code_copy (code){
 
 function zero_currval(){
 	document.getElementById("currval").value = "0";
+	clear_strats();
 }
 function clear_currval(){
 	document.getElementById("currval").value = "";
+	clear_strats();
 	var target = document.getElementById("currval");
 	if (event.target != target) {
 		target.focus();
@@ -521,6 +622,7 @@ function clear_currval(){
 }
 function clear_needval(){
 	document.getElementById("needval").value = "";
+	clear_strats();
 	var target = document.getElementById("needval");
 	if (event.target != target) {
 		target.focus();
@@ -529,4 +631,202 @@ function clear_needval(){
 }
 function clear_mults(){
 	document.getElementById("mults").value = "";
+	clear_strats();
+}
+
+function clear_strats(){
+	strat1arr = [];
+	strat2arr = [];
+	strat3arr = [];
+	stratcalced = false;
+	arrcomb1 = 0;
+	arrcomb2 = [0,0];
+	arrcomb3 = 0;
+	show_strats();
+}
+
+function show_strats(){
+	if (strat1arr.length == 0){
+		document.getElementById("mult1").innerHTML = stratcalced ? "Вариантов нет" : "";
+		arrcomb1 = 0;
+		document.getElementById("m1up").disabled = true;
+		document.getElementById("m1down").disabled = true;
+	} else if (strat1arr.length == 1){
+		document.getElementById("mult1").innerHTML = strat1arr[0].strat;
+		arrcomb1 = 0;
+		document.getElementById("m1up").disabled = true;
+		document.getElementById("m1down").disabled = true;
+	} else {
+		if (arrcomb1 < 0 || arrcomb1 >= strat1arr.length){
+			document.getElementById("mult1").innerHTML = strat1arr[0].strat;
+			arrcomb1 = 0;
+			document.getElementById("m1up").disabled = false;
+			document.getElementById("m1down").disabled = true;
+		}
+		else{
+			document.getElementById("mult1").innerHTML = strat1arr[arrcomb1].strat;
+			document.getElementById("m1up").disabled = arrcomb1 < strat1arr.length-1 ? false : true;
+			document.getElementById("m1down").disabled = arrcomb1 > 0 ? false : true;
+		}
+	}
+	if (strat3arr.length == 0){
+		document.getElementById("mult3").innerHTML = stratcalced ? "Вариантов нет" : "";
+		arrcomb3 = 0;
+		document.getElementById("m3up").disabled = true;
+		document.getElementById("m3down").disabled = true;
+	} else if (strat3arr.length == 1){
+		document.getElementById("mult3").innerHTML = strat3arr[0].strat;
+		arrcomb3 = 0;
+		document.getElementById("m3up").disabled = true;
+		document.getElementById("m3down").disabled = true;
+	} else {
+		if (arrcomb3 < 0 || arrcomb3 >= strat3arr.length){
+			document.getElementById("mult3").innerHTML = strat3arr[0].strat;
+			arrcomb3 = 0;
+			document.getElementById("m3up").disabled = false;
+			document.getElementById("m3down").disabled = true;
+		}
+		else{
+			document.getElementById("mult3").innerHTML = strat3arr[arrcomb3].strat;
+			document.getElementById("m3up").disabled = arrcomb3 < strat3arr.length-1 ? false : true;
+			document.getElementById("m3down").disabled = arrcomb3 > 0 ? false : true;
+		}
+	}
+	if (strat2arr.length == 0){
+		document.getElementById("mult2").innerHTML = stratcalced ? "Вариантов нет" : "";
+		arrcomb2 = [0,0];
+		document.getElementById("m2up").disabled = true;
+		document.getElementById("m2down").disabled = true;
+		document.getElementById("m2left").disabled = true;
+		document.getElementById("m2right").disabled = true;
+	} else if (strat2arr.length == 1){
+		arrcomb2[0] = 0;
+		document.getElementById("m2up").disabled = true;
+		document.getElementById("m2down").disabled = true;
+		if (strat2arr[0].length == 0){
+			document.getElementById("mult2").innerHTML = stratcalced ? "Вариантов нет" : "";
+			arrcomb2 = [0,0];
+			document.getElementById("m2left").disabled = true;
+			document.getElementById("m2right").disabled = true;
+		} else if (strat2arr[0].length == 1){
+			document.getElementById("mult2").innerHTML = strat2arr[0][0].strat;
+			arrcomb2 = [0,0];
+			document.getElementById("m2left").disabled = true;
+			document.getElementById("m2right").disabled = true;
+		} else if (arrcomb2[1] < 0 || arrcomb2[1] >= strat2arr[0].length){
+			document.getElementById("mult2").innerHTML = strat2arr[0][0].strat;
+			arrcomb2[1] = 0;
+			document.getElementById("m2right").disabled = false;
+			document.getElementById("m2left").disabled = true;
+		} else{
+			document.getElementById("mult2").innerHTML = strat2arr[0][arrcomb2[1]].strat;
+			document.getElementById("m2right").disabled = arrcomb2[1] < strat2arr[0].length-1 ? false : true;
+			document.getElementById("m2left").disabled = arrcomb2[1] > 0 ? false : true;
+		}
+	} else {
+		if (arrcomb2[0] < 0 || arrcomb2[0] >= strat2arr.length){
+			arrcomb2[0] = 0;
+			document.getElementById("m2up").disabled = false;
+			document.getElementById("m2down").disabled = true;
+			if (strat2arr[0].length == 0){
+				document.getElementById("mult2").innerHTML = stratcalced ? "Вариантов нет" : "";
+				arrcomb2 = [0,0];
+				document.getElementById("m2up").disabled = true;
+				document.getElementById("m2left").disabled = true;
+				document.getElementById("m2right").disabled = true;
+			} else if (strat2arr[0].length == 1){
+				document.getElementById("mult2").innerHTML = strat2arr[0][0].strat;
+				arrcomb2 = [0,0];
+				document.getElementById("m2left").disabled = true;
+				document.getElementById("m2right").disabled = true;
+			} else if (arrcomb2[1] < 0 || arrcomb2[1] >= strat2arr[0].length){
+				document.getElementById("mult2").innerHTML = strat2arr[0][0].strat;
+				arrcomb2[1] = 0;
+				document.getElementById("m2right").disabled = false;
+				document.getElementById("m2left").disabled = true;
+			} else{
+				document.getElementById("mult2").innerHTML = strat2arr[0][arrcomb2[1]].strat;
+				document.getElementById("m2right").disabled = arrcomb2[1] < strat2arr[0].length-1 ? false : true;
+				document.getElementById("m2left").disabled = arrcomb2[1] > 0 ? false : true;
+			}
+		}
+		else{
+			document.getElementById("m2up").disabled = arrcomb2[0] < strat3arr.length-1 ? false : true;
+			document.getElementById("m2down").disabled = arrcomb2[0] > 0 ? false : true;
+			if (strat2arr[arrcomb2[0]].length == 0){
+				document.getElementById("mult2").innerHTML = stratcalced ? "Вариантов нет" : "";
+				arrcomb2[1] = 0;
+				document.getElementById("m2left").disabled = true;
+				document.getElementById("m2right").disabled = true;
+			} else if (strat2arr[arrcomb2[0]].length == 1){
+				document.getElementById("mult2").innerHTML = strat2arr[arrcomb2[0]][0].strat;
+				arrcomb2[1] = 0;
+				document.getElementById("m2left").disabled = true;
+				document.getElementById("m2right").disabled = true;
+			} else if (arrcomb2[1] < 0 || arrcomb2[1] >= strat2arr[arrcomb2[0]].length){
+				document.getElementById("mult2").innerHTML = strat2arr[arrcomb2[0]][0].strat;
+				arrcomb2[1] = 0;
+				document.getElementById("m2right").disabled = false;
+				document.getElementById("m2left").disabled = true;
+			} else{
+				document.getElementById("mult2").innerHTML = strat2arr[arrcomb2[0]][arrcomb2[1]].strat;
+				document.getElementById("m2right").disabled = arrcomb2[1] < strat2arr[arrcomb2[0]].length-1 ? false : true;
+				document.getElementById("m2left").disabled = arrcomb2[1] > 0 ? false : true;
+			}
+		}
+	}
+}
+function change_strat(but){
+switch (but) {
+	case 1:
+		if (arrcomb1 < strat1arr.length-1){
+			arrcomb1++;
+			show_strats();
+		}
+	break;
+	case 2:
+		if (arrcomb1 > 0){
+			arrcomb1--;
+			show_strats();
+		}
+	break;
+	case 3:
+		if (arrcomb2[0] < strat2arr.length-1){
+			arrcomb2[0]++;
+			arrcomb2[1] = 0;
+			show_strats();
+		}
+	break;
+	case 4:
+		if (arrcomb2[0] > 0){
+			arrcomb2[0]--;
+			arrcomb2[1] = 0;
+			show_strats();
+		}
+	break;
+	case 6:
+		if (arrcomb2[1] < strat2arr[arrcomb2[0]].length-1){
+			arrcomb2[1]++;
+			show_strats();
+		}
+	break;
+	case 5:
+		if (arrcomb2[1] > 0){
+			arrcomb2[1]--;
+			show_strats();
+		}
+	break;
+	case 7:
+		if (arrcomb3 < strat3arr.length-1){
+			arrcomb3++;
+			show_strats();
+		}
+	break;
+	case 8:
+		if (arrcomb3 > 0){
+			arrcomb3--;
+			show_strats();
+		}
+	break;
+}
 }
