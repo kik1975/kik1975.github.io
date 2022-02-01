@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keyw||ds" content="">
+    <title>Множители v1.0</title>
+<style>
+header {
+ display: block; /* Для старых браузеров */
+ height: 100px; /* Высота шапки */
+  background-color: #ffffff;  - фоновый цвет (можно не задавать)
+  margin-bottom: 10px;    - отступ снизу
+
+}
+</style>
+  <style>
+  input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  border: 2px solid #ddd;
+  display: inline-flex;
+  visibility: visibility;
+}
+
+.number-input,
+.number-input * {
+  box-sizing: border-box;
+}
+
+.number-input button {
+  outline:none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  width: 1rem;
+  height: 2px;
+  background-color: #212121;
+  transform: translate(-50%, -50%);
+}
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  font-family: sans-serif;
+  max-width: 5rem;
+  padding: .5rem;
+  border: solid #ddd;
+  border-width: 0 2px;
+  font-size: 2rem;
+  height: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+body {
+-moz-background-size: 100%; /* Firefox 3.6+ */
+-webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+-o-background-size: 100%; /* Opera 9.6+ */
+background-size: cover; /* Современные браузеры */
+}
+
+</style>
+<script src="settings.js"></script>
+<script src="calc.js"></script>
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body   onload="Init()">
+    <header>
+   <div>
+   <center>
+    <img src=""  >
+	</center>
+   </div>
+ </header>
+<h1>
+<table>
+  <tr>
+    <td>Рейтинг</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="rate" value="1000"></td>
+  </tr>
+  <tr>
+    <td>Уровень</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="level" value="25"></td>
+  </tr>
+  <tr>
+    <td>Библиотека</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="library" value="1.3"></td>
+ </tr>
+  <tr>
+    <td>Грааль (%)</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="graal" value="15"></td>
+ </tr>
+</table>
+<p style = "margin-top: 1px;">
+<form name="accForm">
+	<img src="2.jpg" width="64" height="64">
+	<img src="3.jpg" width="64" height="64">
+    <input type="radio" name="accs"  checked="checked" value="0" /> <span id = "nm0"></span>
+	<img src="1.jpg" width="64" height="64">
+    <input type="radio" name="accs"  value="1" /> <span id = "nm1"></span>
+</form>
+</p>
+
+  <table>
+  <caption>Пассивный эффект</caption>
+  <tr>
+  <td>Колличество эпических наборов</td>
+  <td style="padding-left: 20px;">
+	<div class="number-input" id="epikBlock">
+		<button onclick="downBonus(1)" ></button>
+	  <input class="quantity" min="0" max = "4" name="quantity" value="4" type="number" id = "epikNum" onchange="setEpikNum()">
+	  <button onclick="upBonus(1)" class="plus"></button>
+	</div>
+	</td> 
+	</tr>
+  <tr>
+  <td>Колличество мифических наборов</td>
+  <td style="padding-left: 20px;">
+	<div class="number-input" id="mythBlock">
+		<button onclick="downBonus(2)" ></button>
+	  <input class="quantity" min="0" max = "6" name="quantity" value="3" type="number" id = "mythNum" onchange="setEpikNum()">
+	  <button onclick="upBonus(2)" class="plus"></button>
+	</div>
+	</td> 
+	</tr>
+</table>
+<p><input style="font-size: 30px;" type="button" value="Рассчитать" id="calc" onclick="strat()"> 
+</p>
+<p>
+<table>
+   <tr>
+    <td>Без Грааля</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="text" name="" id="baseMults" value="" size = "30"></td>
+  </tr>
+   <tr>
+    <td>С Граалем</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="text" name="" id="graalMults" value="" size = "30"></td>
+  </tr>
+ </table>
+</p>
+</h1>
+</body>
+</html>
