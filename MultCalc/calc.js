@@ -1,5 +1,7 @@
 var epikCounter = 4;
 var mythCounter = 3;
+var onePctCounter = 0;
+var twoPctCounter = 0;
 var SetType = 0;
 
 function Init(){
@@ -24,7 +26,8 @@ function strat() {
 	let graalMults = [];
 	let coeff = SetType == 0 ? 1.4 : 1.3;
 	let setCoeff = SetType == 0 ? 1.2 : 1.15;
-	let currMult = rate*level*library*Math.pow(1.05,epikCounter)*Math.pow(1.07,mythCounter);
+	let currMult = rate*level*library*Math.pow(1.05,epikCounter)*
+			Math.pow(1.07,mythCounter)*Math.pow(1.01,onePctCounter)*Math.pow(1.02,twoPctCounter);
 	baseMults[0] = Math.ceil(currMult);
 	graalMults[0] = Math.ceil(currMult*graal);
 	for (var i = 1; i < 4; i++){
@@ -59,12 +62,21 @@ function downBonus(set){
 	let minVal = parseInt(document.getElementById('epikNum').min);
 	if (currVal > minVal ) document.getElementById('epikNum').value = currVal - 1;
 	epikCounter = parseInt(document.getElementById('epikNum').value);
-  }
-  else{
+  }else if (set == 2){
 	let currVal = parseInt(document.getElementById('mythNum').value) ;
 	let minVal = parseInt(document.getElementById('mythNum').min);
 	if (currVal > minVal ) document.getElementById('mythNum').value = currVal - 1;
 	mythCounter = parseInt(document.getElementById('mythNum').value);
+  }else if (set == 3){
+	let currVal = parseInt(document.getElementById('oneNum').value) ;
+	let minVal = parseInt(document.getElementById('oneNum').min);
+	if (currVal > minVal ) document.getElementById('oneNum').value = currVal - 1;
+	onePctCounter = parseInt(document.getElementById('oneNum').value);
+  }else if (set == 4){
+	let currVal = parseInt(document.getElementById('twoNum').value) ;
+	let minVal = parseInt(document.getElementById('twoNum').min);
+	if (currVal > minVal ) document.getElementById('twoNum').value = currVal - 1;
+	twoPctCounter = parseInt(document.getElementById('twoNum').value);
   }
   clear_mults();
 }
@@ -75,12 +87,21 @@ function upBonus(set){
 	let maxVal = parseInt(document.getElementById('epikNum').max);
 	if (currVal < maxVal ) document.getElementById('epikNum').value = currVal + 1;
 	epikCounter = parseInt(document.getElementById('epikNum').value);
-  }
-  else{
+  }else  if(set == 2){
 	let currVal = parseInt(document.getElementById('mythNum').value) ;
 	let maxVal = parseInt(document.getElementById('mythNum').max);
 	if (currVal < maxVal ) document.getElementById('mythNum').value = currVal + 1;
 	mythCounter = parseInt(document.getElementById('mythNum').value);
+  }else if(set == 3){
+	let currVal = parseInt(document.getElementById('oneNum').value) ;
+	let maxVal = parseInt(document.getElementById('oneNum').max);
+	if (currVal < maxVal ) document.getElementById('oneNum').value = currVal + 1;
+	onePctCounter = parseInt(document.getElementById('oneNum').value);
+  }else  if(set == 4){
+	let currVal = parseInt(document.getElementById('twoNum').value) ;
+	let maxVal = parseInt(document.getElementById('twoNum').max);
+	if (currVal < maxVal ) document.getElementById('twoNum').value = currVal + 1;
+	twoPctCounter = parseInt(document.getElementById('twoNum').value);
   }
   clear_mults();
 }
