@@ -40,8 +40,8 @@ function strat() {
 	let baseStr = "";
 	let graalStr = "";
 	for (var i = 0; i < 4; i++){
-		baseStr += String(baseMults[i]) + ", ";
-		graalStr += String(graalMults[i]) + ", ";
+		baseStr += String(baseMults[i]) + ",";
+		graalStr += String(graalMults[i]) + ",";
 	}
 	baseStr += String(baseMults[4]);
 	graalStr += String(graalMults[4]);
