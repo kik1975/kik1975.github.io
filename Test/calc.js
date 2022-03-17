@@ -572,11 +572,11 @@ function calcSafe(corr){
 		document.getElementById("code2").value = Math.floor(KZval*0.06);
 		document.getElementById("code3").value = Math.floor(KZval*0.1);
 	}
-	if (level <= 100)	videoBonus = 5;
-	else if (level <= 150)	videoBonus = 6;
-	else if (level <= 200)	videoBonus = 7;
-	else if (level <= 300)	videoBonus = 9;
-	else 					videoBonus = 12;
+	if (level <= 100)	videoBonus = 10;
+	else if (level <= 150)	videoBonus = 12;
+	else if (level <= 200)	videoBonus = 14;
+	else if (level <= 300)	videoBonus = 18;
+	else 					videoBonus = 24;
 	document.getElementById('videoBonus').value = videoBonus;
 	switch (loc_code_num) {
 		case 1:
