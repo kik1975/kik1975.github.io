@@ -89,7 +89,6 @@ body {
 -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
 -o-background-size: 100%; /* Opera 9.6+ */
 background-size: cover; /* Современные браузеры */
-background-image: url(../../Release/flowers.jpg);
 }
 
 </style>
@@ -103,7 +102,7 @@ background-image: url(../../Release/flowers.jpg);
     <header>
    <div>
    <center>
-    <img src="..\..\Release\8march.jpg"  >
+    <img src="..\..\Release\headerpic.jpg"  >
 	</center>
    </div>
  </header>
@@ -111,14 +110,18 @@ background-image: url(../../Release/flowers.jpg);
 <table>
   <tr>
     <td>Текущие очки</td>
-    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="currval" value="0"></td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="currval" value="0" onchange="updateRest()"></td>
 	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="0" id="zero_currval" onclick="zero_currval()"></td>
 	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_currval" onclick="clear_currval()"></td>
   </tr>
   <tr>
     <td>Цель</td>
-    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="needval" value="450000"></td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="needval" value="" onchange="updateRest()"></td>
 	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_needval" onclick="clear_needval()"></td>
+  </tr>
+  <tr>
+    <td>Осталось</td>
+    <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="restval" value="" disabled ></td>
   </tr>
   <tr>
     <td>Множители</td>
