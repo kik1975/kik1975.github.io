@@ -2,6 +2,7 @@ var HourCorrection = 3;
 var currDate = new Date();
 currDate.setHours(currDate.getHours()-HourCorrection);
 var curracc = 0;
+var currgoal = 0;
 var videoBonus = videoBonuses[curracc];
 var begDate = new Date(begDates[curracc][0],begDates[curracc][1],begDates[curracc][2])
 var diffDays;
@@ -61,6 +62,33 @@ function onclick(e){
 	Init();
 }
 
+
+function onclickgoal(e){
+	var newgoal =  parseInt(e.target.value);
+	if (currgoal != newgoal){
+		if (newgoal == 0){
+			document.getElementById("currval").disabled = false;
+			document.getElementById("needval").disabled = false;
+			document.getElementById("restval").disabled = true;
+			document.getElementById("clear_currval").disabled = false;
+			document.getElementById("zero_currval").disabled = false;
+			document.getElementById("clear_needval").disabled = false;
+			document.getElementById("clear_restval").disabled = true;
+		}
+		else{
+			document.getElementById("currval").disabled = true;
+			document.getElementById("needval").disabled = true;
+			document.getElementById("restval").disabled = false;
+			document.getElementById("clear_currval").disabled = true;
+			document.getElementById("zero_currval").disabled = true;
+			document.getElementById("clear_needval").disabled = true;
+			document.getElementById("clear_restval").disabled = false;
+		}
+	}
+    currgoal = newgoal;
+	Init();
+}
+
 function isUnlikely(x){
 	if ( x < 3 || x == 4 || x == 5 || x == 7 || x == 8 || x == 11 || x == 14 || x == 17) return true;
 	return false;
@@ -88,6 +116,8 @@ function Init(){
 	}
     document.getElementById("Graal").hidden = isLiteVersion;
     document.getElementById("noGraal").hidden = isLiteVersion;
+	goalForm.goal[0].addEventListener("click", onclickgoal);
+	goalForm.goal[1].addEventListener("click", onclickgoal);
     if (accs > 1 && accs < 5){
         for (var i = 0; i < accs; ++i){
             accForm.accs[i].hidden = false;
@@ -107,20 +137,32 @@ function strat() {
 	arrcomb1 = 0;
 	arrcomb2 = [0,0];
 	arrcomb3 = 0;
-	if (isNaN(parseInt(document.getElementById('currval').value))){
-	     document.getElementById("result").innerHTML = "Отсутствуют текущие очки";
-    	 return;
+	let start = 0;
+	let end = 0;
+	if (currgoal == 0){
+		if (isNaN(parseInt(document.getElementById('currval').value))){
+			 document.getElementById("result").innerHTML = "Отсутствуют текущие очки";
+			 return;
+		}
+		start = parseInt(document.getElementById("currval").value);
+		if (isNaN(parseInt(document.getElementById('needval').value))){
+			 document.getElementById("result").innerHTML = "Отсутствует цель";
+			 return;
+		}
+		end = parseInt(document.getElementById("needval").value);
+		if (start >= end){
+			document.getElementById("result").innerHTML = "Цель меньше текущего результата";
+			return;
+		}
 	}
-     let start = parseInt(document.getElementById("currval").value);
-	if (isNaN(parseInt(document.getElementById('needval').value))){
-	     document.getElementById("result").innerHTML = "Отсутствует цель";
-    	 return;
+	else{
+		if (isNaN(parseInt(document.getElementById('restval').value))){
+			 document.getElementById("result").innerHTML = "Отсутствуют остаток";
+			 return;
+		}
+		start = 0;
+		end = parseInt(document.getElementById("restval").value);
 	}
-     let end = parseInt(document.getElementById("needval").value);
-	 if (start >= end){
-	    document.getElementById("result").innerHTML = "Цель меньше текущего результата";
-		return;
-	 }
 	let multstr = document.getElementById("mults").value.split(' ').join(',').split('.').join(',').split(',');
 	 if (multstr.length == 0){
 	     document.getElementById("result").innerHTML = "Отсутствуют множители";
@@ -638,6 +680,15 @@ function clear_needval(){
 	document.getElementById("needval").value = "";
 	clear_strats();
 	var target = document.getElementById("needval");
+	if (event.target != target) {
+		target.focus();
+		target.click();
+	}
+}
+function onclear_restval(){
+	document.getElementById("restval").value = "";
+	clear_strats();
+	var target = document.getElementById("restval");
 	if (event.target != target) {
 		target.focus();
 		target.click();
