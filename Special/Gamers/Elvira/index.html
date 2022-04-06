@@ -84,6 +84,7 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: bold;
   text-align: center;
 }
+.big{ width: 3em; height: 3em; }
 body {
 -moz-background-size: 100%; /* Firefox 3.6+ */
 -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
@@ -107,28 +108,37 @@ background-size: cover; /* Современные браузеры */
    </div>
  </header>
 <h1>
+<form name="goalForm">
 <table>
   <tr>
     <td>Текущие очки</td>
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="currval" value="0" onchange="updateRest()"></td>
 	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="0" id="zero_currval" onclick="zero_currval()"></td>
 	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_currval" onclick="clear_currval()"></td>
+	<td rowspan="2"><input type="radio" name="goal" checked="checked" value="0" class="big" /></td>
   </tr>
   <tr>
     <td>Цель</td>
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="needval" value="" onchange="updateRest()"></td>
 	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_needval" onclick="clear_needval()"></td>
+	<td></td>
   </tr>
   <tr>
-    <td>Осталось</td>
+    <td>Остаток</td>
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="restval" value="" disabled ></td>
+	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_restval" onclick="onclear_restval()" disabled></td>
+	<td></td>
+	<td><input type="radio" name="goal" value="1" class="big" /></td>
   </tr>
   <tr>
     <td>Множители</td>
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="Множители" id="mults" value=""></td>
 	<td><input style="font-size: 30px;height:42px;width:42px" type="button" value="X" id="clear_mults" onclick="clear_mults()"></td>
+	<td></td>
+	<td></td>
  </tr>
 </table>
+</form>
 <p style = "margin-top: 1px;">
 <form name="accForm">
     <input type="radio" name="accs" hidden checked="checked" value="0" /> <span id = "nm0"></span>
