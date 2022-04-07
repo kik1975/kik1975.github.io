@@ -662,12 +662,12 @@ function code_copy (code){
 	updateRest();
 }
 
-function zero_currval(){
+function onzero_currval(){
 	document.getElementById("currval").value = "0";
 	clear_strats();
 	updateRest();
 }
-function clear_currval(){
+function onclear_currval(){
 	document.getElementById("currval").value = "";
 	clear_strats();
 	var target = document.getElementById("currval");
@@ -676,7 +676,7 @@ function clear_currval(){
 		target.click();
 	}
 }
-function clear_needval(){
+function onclear_needval(){
 	document.getElementById("needval").value = "";
 	clear_strats();
 	var target = document.getElementById("needval");
@@ -694,7 +694,7 @@ function onclear_restval(){
 		target.click();
 	}
 }
-function clear_mults(){
+function onclear_mults(){
 	document.getElementById("mults").value = "";
 	clear_strats();
 	updateRest();
