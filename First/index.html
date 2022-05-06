@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keyw||ds" content="">
+    <title>Слово</title>
+  <style>
+   .redtext {
+     color: red; /* Красный цвет выделения */
+   }
+  </style>
+  <style>
+   .bluetext {
+     color: blue; /* Синий цвет выделения */
+   }
+  </style>
+
+<script type="text/javascript">
+var videoBonus = 7;
+  function strat() {
+     let start = parseInt(document.getElementById("currval").value);
+     let end = parseInt(document.getElementById("needval").value);
+     let multstr = document.getElementById("mults").value.split(',');
+	 if (start >= end) return;
+	 if (multstr.length == 0) return;
+	 if (document.getElementById('videoCheck').checked != true || isNaN(parseInt(document.getElementById('videoAdd').value))){
+		 let multnum = new Array()
+		 let j = 0;
+		 for (var i = 0; i < multstr.length; i++){
+			if(isNaN(parseInt(multstr[i]))) continue;
+			multnum[j] = parseInt(multstr[i]);
+			j++;
+		 }
+		 if (multnum.length == 0) return;
+		 multnum.sort(function(a, b) {
+			return b - a;
+		 });
+		 diff = end - start;
+		 if (diff < multnum[multnum.length-1]*3){
+		   document.getElementById("result").innerHTML = "Слишком большие множители";
+		   return;
+		 }
+		 let checkBox = document.getElementById("myCheck");
+		 for (var i = 0; i < multnum.length; i++){
+			let up = Math.floor(diff/multnum[i]);
+			let rest = diff%multnum[i];
+			if (up < 3) continue;
+			if (checkBox.checked == true && (up == 4 || up == 5 || up == 7 || up == 8 || up == 11 || up == 13 || up == 14 || up == 17 || up == 18)) continue;
+		   if(rest == 0){
+			document.getElementById("result").innerHTML = String(multnum[i]) + "x" + String(up);
+			return;
+		   }
+		   for (var mn = up; mn >= 3; mn --){
+			if (checkBox.checked == true && (mn == 4 || mn == 5 || mn == 7 || mn == 8 || mn == 11 || mn == 13 || mn == 14 || mn == 17 ||  mn == 18)) continue;
+		   let diff1 = diff-multnum[i]*mn;
+			 for (j = i+1; j < multnum.length; j++ ){
+			   let up1 = Math.floor(diff1/multnum[j]);
+			   let rest1 = diff1%multnum[j];
+			   if (up1 < 3) continue;
+			   if (checkBox.checked == true && (up1 == 4 || up1 == 5 || up1 == 7 || up1 == 8 || up1 == 11 || up1 == 13 || up1 == 14 || up1 == 17 || up1 == 18)) continue;
+			   if(rest1 == 0 ){
+				 document.getElementById("result").innerHTML = String(multnum[i]) + "x" + String(mn) + "+" +  String(multnum[j]) + "x" + String(up1);
+				 return;
+			   }
+			 }
+		   }
+		 }
+		 document.getElementById("result").innerHTML = "Стратегия не найдена";
+	 }
+	 else{
+	 	let multnum = new Array()
+		let j = 0;
+		let add = parseInt(document.getElementById('videoAdd').value);
+		for (var i = 0; i < multstr.length; i++){
+			if(isNaN(parseInt(multstr[i]))) continue;
+			multnum[j] = [];
+			multnum[j][0] = parseInt(multstr[i]);
+			multnum[j][1] = 0;
+			j++;
+			multnum[j] = [];
+			multnum[j][0] = parseInt(multstr[i])+parseInt(videoBonus);
+			multnum[j][1] = parseInt(videoBonus);
+			j++;
+		}
+		if (multnum.length == 0) return;
+		multnum.sort(function(a, b) {
+			return b[0] - a[0];
+		});
+		diff = end - start;
+		if (diff < multnum[multnum.length-1][0]*3){
+		  document.getElementById("result").innerHTML = "Слишком большие множители";
+		  return;
+		}
+		 let checkBox = document.getElementById("myCheck");
+		 for (var i = 0; i < multnum.length; i++){
+			let up = Math.floor(diff/multnum[i][0]);
+			let rest = diff%multnum[i][0];
+			if (up < 3) continue;
+			if (checkBox.checked == true && (up == 4 || up == 5 || up == 7 || up == 8 || up == 11 || up == 13 || up == 14 || up == 17 || up == 18)) continue;
+		   if(rest == 0){
+		    if (multnum[i][1] == 0)
+				document.getElementById("result").innerHTML = String(multnum[i][0]) + "x" + String(up);
+			else
+				document.getElementById("result").innerHTML = "(" + String(multnum[i][0]-multnum[i][1]) + "+" + String(multnum[i][1]) + ")x" + String(up);
+			return;
+		   }
+		   for (var mn = up; mn >= 3; mn --){
+			if (checkBox.checked == true && (mn == 4 || mn == 5 || mn == 7 || mn == 8 || mn == 11 || mn == 13 || mn == 14 || mn == 17 ||  mn == 18)) continue;
+		   let diff1 = diff-multnum[i][0]*mn;
+			 for (j = i+1; j < multnum.length; j++ ){
+			   let up1 = Math.floor(diff1/multnum[j][0]);
+			   let rest1 = diff1%multnum[j][0];
+			   if (up1 < 3) continue;
+			   if (checkBox.checked == true && (up1 == 4 || up1 == 5 || up1 == 7 || up1 == 8 || up1 == 11 || up1 == 13 || up1 == 14 || up1 == 17 || up1 == 18)) continue;
+			   if(rest1 == 0 ){
+				let str1, str2;
+			    if (multnum[i][1] == 0)
+				  str1 = String(multnum[i][0]) + "x" + String(mn);
+				else 
+				  str1 = "(" + String(multnum[i][0]-multnum[i][1]) + "+" + String(multnum[i][1]) + ")x" + String(mn);
+			    if (multnum[j][1] == 0)
+				  str2 = String(multnum[j][0]) + "x" + String(up1);
+				else 
+				  str2 = "(" +  String(multnum[j][0]-multnum[j][1]) + "+" + String(multnum[j][1]) + ")x" + String(up1);
+				 document.getElementById("result").innerHTML = str1  + "+" +  str2;
+				 return;
+			   }
+			 }
+		   }
+		 }
+		 document.getElementById("result").innerHTML = "Стратегия не найдена";
+	 }
+  }
+function checkVB() {
+  var checkbox=document.getElementById('videoCheck');
+  if(checkbox.checked == true)
+  {
+	document.getElementById('videoAdd').value = videoBonus;
+	document.getElementById('videoAdd').style.display= 'inline';
+  }
+  else{
+  	document.getElementById('videoAdd').style.display= 'none';
+  }
+}
+function setBonus() {
+  videoBonus = parseInt(document.getElementById('videoAdd').value);
+}
+
+</script>
+    
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+<h1>
+<p> Текущие очки <input style="font-size: 30px;" type="" name="" id="currval" value="0"></p>
+<p> Цель <input style="font-size: 30px;" type="" name="" id="needval" value="450000"></p>
+<p> Множители <input style="font-size: 30px;" type="" name="Множители" id="mults" value=""></p>
+<p> Не использовать маловерятные комбинации <input style="font-size: 30px;" type="checkbox" name="" value=""  id="myCheck" checked></p>
+<p> Применять видеобонус <input style="font-size: 30px;" type="checkbox" name="" value=""  id="videoCheck" onclick="checkVB()">
+<input style="font-size: 30px; width: 50px; display:none" type="" name="" id="videoAdd" value="" onchange="setBonus()">
+</p>
+<p><input style="font-size: 30px;" type="button" value="Рассчитать" id="calc" onclick="strat()"></p>
+<p><textarea style="font-size: 30px;" name="" rows="3" cols="20" id="result"></textarea></p>
+</h1>
+</body>
+</html>
