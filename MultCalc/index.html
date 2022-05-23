@@ -25,56 +25,56 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
-
-.number-input {
-  border: 2px solid #ddd;
-  display: inline-flex;
-  visibility: visibility;
+.number {
+	display: inline-block;
+	position: relative;
+	width: 80px;
 }
-
-.number-input,
-.number-input * {
-  box-sizing: border-box;
+.number input[type="number"] {
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	width: 100%;
+	font-size: 20px;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	text-align: center;
+	-moz-appearance: textfield;
+	-webkit-appearance: textfield;
+	appearance: textfield;
 }
-
-.number-input button {
-  outline:none;
-  -webkit-appearance: none;
-  background-color: transparent;
-  border: none;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  cursor: pointer;
-  margin: 0;
-  position: relative;
+.number input[type="number"]::-webkit-outer-spin-button,
+.number input[type="number"]::-webkit-inner-spin-button {
+	display: none;
 }
-
-.number-input button:before,
-.number-input button:after {
-  display: inline-block;
-  position: absolute;
-  content: '';
-  width: 1rem;
-  height: 2px;
-  background-color: #212121;
-  transform: translate(-50%, -50%);
+.number-minus {
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	bottom: 1px;
+	width: 20px;
+	padding: 0;
+	display: block;
+	text-align: center;
+	border: none;
+	border-right: 1px solid #ddd;
+	font-size: 16px;
+	font-weight: 600;
 }
-.number-input button.plus:after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.number-input input[type=number] {
-  font-family: sans-serif;
-  max-width: 5rem;
-  padding: .5rem;
-  border: solid #ddd;
-  border-width: 0 2px;
-  font-size: 2rem;
-  height: 3rem;
-  font-weight: bold;
-  text-align: center;
+.number-plus {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	bottom: 1px;
+	width: 20px;
+	padding: 0;
+	display: block;
+	text-align: center;
+	border: none;
+	border-left: 1px solid #ddd;
+	font-size: 16px;
+	font-weight: 600;
 }
 body {
 -moz-background-size: 100%; /* Firefox 3.6+ */
@@ -84,7 +84,6 @@ background-size: cover; /* Современные браузеры */
 }
 
 </style>
-<script src="settings.js"></script>
 <script src="calc.js"></script>
     <!--[if IE]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -117,6 +116,49 @@ background-size: cover; /* Современные браузеры */
     <td style="padding-left: 20px;"><input style="font-size: 30px;padding-left: 10px;" type="" name="" id="graal" value="15"></td>
  </tr>
 </table>
+<table>
+  <caption>Пассивный эффект</caption>
+  <tr>
+  <td>Колличество эпических наборов</td>
+  <td style="padding-left: 20px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="0" max ="4" value="4" readonly id ="epikNum">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td> 
+</tr>
+<tr>
+<td>Колличество мифических наборов</td>
+<td style="padding-left: 20px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="0" max ="6" value="3" readonly id ="mythNum">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td> 
+</tr>
+  <tr>
+  <td>Колличество наборов c 1% </td>
+  <td style="padding-left: 20px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="0" max ="9" value="0" readonly id ="oneNum">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td> 
+</tr>
+  <tr>
+  <td>Колличество наборов c 2% </td>
+  <td style="padding-left: 20px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="0" max ="2" value="0" readonly id ="twoNum">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td> 
+</tr>
+</table>
 <p style = "margin-top: 1px;">
 <form name="accForm">
 	<img src="2.jpg" width="64" height="64">
@@ -126,51 +168,63 @@ background-size: cover; /* Современные браузеры */
     <input type="radio" name="accs"  value="1"  class="big" /> <span id = "nm1"></span>
 </form>
 </p>
-
-  <table>
-  <caption>Пассивный эффект</caption>
-  <tr>
-  <td>Колличество эпических наборов</td>
-  <td style="padding-left: 20px;">
-	<div class="number-input" id="epikBlock">
-		<button onclick="downBonus(1)" ></button>
-	  <input class="quantity" min="0" max = "4" name="quantity" value="4" type="number" id = "epikNum" onchange="setEpikNum()">
-	  <button onclick="upBonus(1)" class="plus"></button>
-	</div>
-	</td> 
-	</tr>
-  <tr>
-  <td>Колличество мифических наборов</td>
-  <td style="padding-left: 20px;">
-	<div class="number-input" id="mythBlock">
-		<button onclick="downBonus(2)" ></button>
-	  <input class="quantity" min="0" max = "6" name="quantity" value="3" type="number" id = "mythNum" onchange="setEpikNum()">
-	  <button onclick="upBonus(2)" class="plus"></button>
-	</div>
-	</td> 
-	</tr>
-  <tr>
-  <td>Колличество наборов c 1% </td>
-  <td style="padding-left: 20px;">
-	<div class="number-input" id="epikBlock">
-		<button onclick="downBonus(3)" ></button>
-	  <input class="quantity" min="0" max = "9" name="quantity" value="0" type="number" id = "oneNum" onchange="setEpikNum()">
-	  <button onclick="upBonus(3)" class="plus"></button>
-	</div>
-	</td> 
-	</tr>
-  <tr>
-  <td>Колличество наборов c 2% </td>
-  <td style="padding-left: 20px;">
-	<div class="number-input" id="epikBlock">
-		<button onclick="downBonus(4)" ></button>
-	  <input class="quantity" min="0" max = "2" name="quantity" value="0" type="number" id = "twoNum" onchange="setEpikNum()">
-	  <button onclick="upBonus(4)" class="plus"></button>
-	</div>
-	</td> 
-	</tr>
+<p>
+<table border="1">
+<tr>
+<td align="center" style="padding: 5px;">Шапка</td>
+<td align="center" style="padding: 5px;">Парик</td>
+<td align="center" style="padding: 5px;">Предмет</td>
+<td align="center" style="padding: 5px;">Аура</td>
+</tr>
+<tr>
+<td align="center" style="padding: 5px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="1" max ="10" value="1" readonly id ="shapka">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td>
+<td align="center" style="padding: 5px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="1" max ="10" value="1" readonly id ="parik">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td>
+<td align="center" style="padding: 5px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="1" max ="10" value="1" readonly id ="predmet">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td>
+<td  align="center" style="padding: 5px;">
+<div class="number">
+	<button class="number-minus" type="button" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+	<input type="number" min="1" max ="10" value="1" readonly id ="aura">
+	<button class="number-plus" type="button" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+</div>
+</td>
+</tr>
+<tr>
+<td align="center" style="padding: 5px;">
+<input type="checkbox" id="chk1" name="chk1" checked>
+</td>
+<td align="center" style="padding: 5px;">
+<input type="checkbox" id="chk2" name="chk2" checked>
+</td>
+<td align="center" style="padding: 5px;">
+<input type="checkbox" id="chk3" name="chk3" checked>
+</td>
+<td  align="center" style="padding: 5px;">
+<input type="checkbox" id="chk4" name="chk4" checked>
+</td>
+</tr>
 </table>
-<p><input style="font-size: 30px;" type="button" value="Рассчитать" id="calc" onclick="strat()"> 
+</p>
+<p><input style="font-size: 30px;" type="button" value="Набор" id="calc" onclick="strat()"> 
+</p>
+<p><input style="font-size: 30px;" type="button" value="Комбинация" id="comb" onclick="comb()"> 
 </p>
 <p>
 <table>
