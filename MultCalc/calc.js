@@ -15,6 +15,7 @@ function Init(){
 		accForm.accs[i].hidden = false;
 		accForm.accs[i].addEventListener("click", onclick);
 	}
+	document.getElementById('trchk').hidden = false;
 	for (var i = 0; i < 4; ++i){
 		document.getElementById(names[i]).max = lev_count[SetType];
 	}
@@ -24,6 +25,8 @@ function onclick(e){
 	var newSetType =  parseInt(e.target.value);
 	if (SetType != newSetType)   clear_mults();
     SetType = newSetType;
+	if (SetType == 1) document.getElementById('trchk').hidden = true;
+	else document.getElementById('trchk').hidden = false;
 	for (var i = 0; i < 4; ++i){
 		document.getElementById(names[i]).value = 1;
 		document.getElementById(names[i]).max = lev_count[SetType];
