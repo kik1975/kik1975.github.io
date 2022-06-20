@@ -1,9 +1,10 @@
-var videoBonuses = [6,12,6,12];
+var videoBonuses = [12,12,6,12];
 var baseStr = ["","","",""];
-var graalStr = ["","","",""];
+var graalStr = ["1686,1004,717,512,362","","",""];
 var accNames = ["","","",""];
 var accs = 1
-var begDates = [[2021, 2, 31],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
-var range = [133,133,133,133];
+var begDates = [[2022, 5, 11],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
+var range = [853,133,133,133];
 var isLiteVersion = false;
 var isAutoLevel = [true,false,false,false];
+var code_num = [1,3,1,3];
