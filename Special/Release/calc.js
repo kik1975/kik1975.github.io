@@ -629,7 +629,8 @@ function calcSafe(corr){
 	else if (level <= 150)	videoBonus = 6;
 	else if (level <= 200)	videoBonus = 7;
 	else if (level <= 300)	videoBonus = 9;
-	else 					videoBonus = 12;
+	else if (level <= 600)	videoBonus = 11;
+	else 					videoBonus = 13;
 	document.getElementById('videoBonus').value = videoBonus;
 	switch (loc_code_num) {
 		case 1:
