@@ -1,4 +1,4 @@
-var videoBonuses = [12,12,5,12];
+var videoBonuses = [13,12,5,12];
 var code_num = [3,2,3,3];
 var baseStr = ["","","",""];
 var graalStr = ["","","",""];
