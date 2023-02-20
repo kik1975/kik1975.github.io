@@ -6,5 +6,5 @@ var baseStr = ["6661,3872,3826,2700,2668,2637,1861,1839,1283","","",""];
 var videoBonuses = [12,12,12,12];
 var isAutoLevel = [true,true,true,true];
 var begDates = [[2022, 9, 29],[2023, 01, 16],[2022, 5, 11],[2022, 5, 11]];
-var range = [1276,551,854,854];
+var range = [1275,551,854,854];
 var code_num = [3,2,3,2];
