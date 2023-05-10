@@ -5,6 +5,6 @@ var baseStr = ["9462,7014,6079","6481,4945,4760","",""];
 var accNames = ["Юля","Валек","",""];
 var accs = 2
 var begDates = [[2023, 4, 10],[2023, 4, 10],[2021, 2, 31],[2021, 2, 31]];
-var range = [1248,1248,133,133];
+var range = [1249,1249,133,133];
 var isLiteVersion = false;
 var isAutoLevel = [true,true,false,false];
