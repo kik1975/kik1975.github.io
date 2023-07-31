@@ -1,6 +1,6 @@
 var videoBonuses = [12,12,6,12];
 var code_num = [3,1,3,3];
-var baseStr = ["","","",""];
+var baseStr = ["3717, 2852, 742","","",""];
 var graalStr = ["4275, 3280, 853","","",""];
 var accNames = ["","","",""];
 var accs = 1
