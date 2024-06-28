@@ -1,7 +1,7 @@
 var videoBonuses = [12,12,6,12];
 var code_num = [3,1,3,3];
 var baseStr = ["","","",""];
-var graalStr = ["4664 3657 3369 909","","",""];
+var graalStr = ["4602 3609 3324 897","","",""];
 var accNames = ["","","",""];
 var accs = 1
 var begDates = [[2024, 3, 24],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
