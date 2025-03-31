@@ -96,7 +96,7 @@ function isUnlikely(x){
 
 function Init(){
 	if (typeof userComb === 'undefined' || isNaN(parseInt(userComb))){
-		nComb = 6;
+		nComb = 10;
 	}
 	else{
 		nComb = parseInt(userComb);
