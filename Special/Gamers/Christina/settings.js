@@ -1,0 +1,10 @@
+var videoBonuses = [13,12,6,12];
+var baseStr = ["","","",""];
+var graalStr = ["2266 1286 876 597 406","","",""];
+var accNames = ["","","",""];
+var accs = 1
+var begDates = [[2024, 10, 10],[2021, 2, 31],[2021, 2, 31],[2021, 2, 31]];
+var range = [803,133,133,133];
+var isLiteVersion = false;
+var isAutoLevel = [true,false,false,false];
+var code_num = [3,3,3,2];
