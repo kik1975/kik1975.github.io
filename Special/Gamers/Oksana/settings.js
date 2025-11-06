@@ -1,5 +1,5 @@
 var videoBonuses = [13,13,6,12];
-var baseStr = ["","","",""];
+var baseStr = ["12808 7067 4816 3282 2237","","",""];
 var graalStr = ["14730 8127 5538 3775 2572","","",""];
 var accNames = ["Оксана","Кристина","",""];
 var accs = 1
