@@ -7,4 +7,4 @@ var begDates = [[2025, 5, 1],[2025, 11, 6],[2021, 2, 31],[2021, 2, 31]];
 var range = [626,2352,133,133];
 var isLiteVersion = false;
 var isAutoLevel = [true,true,false,false];
-var code_num = [3,2,3,2];
+var code_num = [3,3,3,2];
