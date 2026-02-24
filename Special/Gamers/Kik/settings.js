@@ -1,5 +1,10 @@
 var isLiteVersion = false;
-var graalStr = ["10214 5660 3764 2503 1664","5951 3298 2193 1459 970","",""];
+var graalStr = ["9792 5426 3608 2399 1596","5950 3297 2193 1458 970","",""];
+var accs = 2;
+var accNames = ["ВКонтакте","Юля","",""];
+var baseStr = ["","","",""];
+var videoBonuses = [13,13,12,12];
+var isAutoLevel = [true,true,true,true];
 var accs = 2;
 var accNames = ["ВКонтакте","Юля","",""];
 var baseStr = ["","","",""];
