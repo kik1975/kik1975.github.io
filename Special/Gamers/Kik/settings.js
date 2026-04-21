@@ -1,5 +1,5 @@
 var isLiteVersion = false;
-var graalStr = ["8969 4970 3305 2198 1462","","",""];
+var graalStr = ["8969 4970 3305 2198 1462","5490 3043 2023 1346 895","",""];
 var accs = 2;
 var accNames = ["ВКонтакте","Юля","",""];
 var baseStr = ["","","",""];
